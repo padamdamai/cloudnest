@@ -1,5 +1,17 @@
 {% extends 'index.html' %}
 {% block content %}
+
+ {% for msg in messages %}
+    {% if msg.level ==  DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+    <div class="alert alert-success w-50 m-auto">{{msg}}</div>
+    {% endif %}
+
+    {% if msg.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+    <div class="alert alert-danger w-50 m-auto">{{msg}}</div>
+    {% endif %}
+{% endfor %}
+
+
 <p>hello world</p>
 
 {% endblock content %}

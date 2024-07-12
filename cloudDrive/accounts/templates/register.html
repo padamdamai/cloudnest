@@ -7,9 +7,25 @@
     <title>Registration</title>
 </head>
 <body>
+ 
+ {% for msg in messages %}
+    {% if msg.level ==  DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+    <div class="alert alert-success w-50 m-auto">{{msg}}</div>
+    {% endif %}
+
+    {% if msg.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+    <div class="alert alert-danger w-50 m-auto">{{msg}}</div>
+    {% endif %}
+{% endfor %}
 
 
-<p>Register form </p>
-{% endblock content %}
+<form action="" method="post">
+    {% csrf_token %}
+    {{ Registration_form | crispy }}
+          <p>already have an accounts <a href="/login">signin</a></p>      
+    <div> 
+        <input type="submit" value="register">
+    </div>
+</form>
 </body>
 </html>
