@@ -1,12 +1,7 @@
+{% extends "index.html" %}
 {% load crispy_forms_tags %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration</title>
-</head>
-<body>
+
+{% block content %}
  
  {% for msg in messages %}
     {% if msg.level ==  DEFAULT_MESSAGE_LEVELS.SUCCESS %}
@@ -19,13 +14,14 @@
 {% endfor %}
 
 
-<form action="" method="post">
-    {% csrf_token %}
-    {{ Registration_form | crispy }}
-          <p>already have an accounts <a href="/login">signin</a></p>      
-    <div> 
-        <input type="submit" value="register">
-    </div>
-</form>
-</body>
-</html>
+<div class="container">
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ Registration_form | crispy }}
+              <p>already have an accounts <a href="/cloudNest/login">signin</a></p>      
+        <div> 
+            <input type="submit" value="register">
+        </div>
+    </form>
+</div>
+{% endblock content %}

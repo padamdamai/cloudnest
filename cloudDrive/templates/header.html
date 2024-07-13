@@ -1,11 +1,112 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>header</title>
-</head>
-<body>
-   <h1>header content</h1> 
-</body>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand fs-3 fw-bolder" href="">CloudNest</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarTogglerDemo02"
+          aria-controls="navbarTogglerDemo02"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/cloudNest/login">Login</a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="/cloudNest/register"
+                aria-disabled="true"
+                >Signup</a
+              >
+            </li>
+            <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="#"
+                  aria-disabled="true"
+                  >feedback</a
+                >
+              </li>
+          </ul>
+          <form class="container-fluid d-flex float-end" role="search">
+            <input
+              class="form-control me-2 w-75"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+            />
+          </form>
+          <div>
+            <img
+              src="{% static 'images/profile.png' %}"
+              class="rounded-circle ms-4"
+              height="40px"
+              width="40px"
+              alt="profile image"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#offcanvasRight"
+              aria-controls="offcanvasRight"
+              type="button"
+              id="btnToggle"
+              onclick="toggleImage()"
+            />
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="me-2 position-relative" id="show_disapper_img" style="display: none;top: 12%;left:74%;">
+      <ul class="sub-top h-auto w-25 bg-dark text-light rounded p-4 position-absolute ">
+        <div class="text-center p-3">
+          <img
+            src="{% static 'images/profile.png' %}"
+            height="100"
+            width="100"
+            class="rounded-circle"
+            alt="image"
+            
+          />
+        </div>
+        <li class="sub-list text-center">@user_name</li>
+        <li class="sub-list"></li>
+        <li class="sub-list">Setting</li>
+        <li class="sub-list text-warning "><a href="/logout">Logout</a></li>
+      </ul>
+      
+    </div>
+
+    <script>
+         function toggleImage() {
+    var myClock = document.getElementById('show_disapper_img');
+    var displaySetting = myClock.style.display;
+
+    var clockButton = document.getElementById('btnToggle');
+    if (displaySetting == 'block') {
+      myClock.style.display = 'none';
+    }
+    else {
+      myClock.style.display = 'block';
+    }
+  }
+
+    </script>
+  </body>
 </html>

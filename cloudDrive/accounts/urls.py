@@ -2,6 +2,7 @@ from django.urls import path
 from .views import * 
 
 urlpatterns = [
-    path('',registerUser),
-    path('login/',login_user)
+    path('cloudNest/register',registerUser),
+    path('cloudNest/login/',login_user),
+    path('logout/',logout_user)
 ]

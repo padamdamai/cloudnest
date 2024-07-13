@@ -1,12 +1,13 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.forms import UserCreationForm
 from .forms import * 
+from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 # Create your views here.
 def registerUser(request):
     if request.method == 'POST':
-        register_user = UserCreationForm(request.POST)
+        register_user = CustomUserCreationForm(request.POST,request.FILES)
         if register_user.is_valid():
             register_user.save()
             messages.add_message(request,messages.SUCCESS,'You are successfully registered')
@@ -16,7 +17,7 @@ def registerUser(request):
             return render(request,'register.html')
 
     context ={
-        "Registration_form": UserCreationForm
+        "Registration_form": CustomUserCreationForm
     }
     return render(request,'register.html',context)
 
@@ -40,3 +41,7 @@ def login_user(request):
         'Login_user':Login_user()
     }
     return render(request,'login.html',context)
+
+def logout_user(request):
+    logout(request)
+    return redirect('/cloudNest/login')
