@@ -44,7 +44,7 @@ class CustomUserCreationForm(UserCreationForm):
             self.cleaned_data['username'],  
             self.cleaned_data['email'],  
             self.cleaned_data['password1'],  
-            self.cleaned_data['img']
+            self.cleaned_data['profile_pic']
         )  
         return user  
 

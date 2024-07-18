@@ -4,5 +4,5 @@ from .views import *
 urlpatterns = [
     path('cloudNest/register',registerUser),
     path('cloudNest/login/',login_user),
-    path('logout/',logout_user)
+    path('cloudNest/logout/',logout_user)
 ]
