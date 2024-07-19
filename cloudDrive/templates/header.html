@@ -7,10 +7,10 @@
     <title>header</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   </head>
-  <body class="">
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <body >
+    <nav class="navbar navbar-expand-lg" style="background-color: rgb(70, 67, 67);">
       <div class="container-fluid">
-        <a class="navbar-brand fs-3 fw-bolder" href="">CloudNest</a>
+        <a class="navbar-brand fs-3 fw-bolder text-light" href="">CloudNest</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -25,15 +25,15 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/">Home</a>
+              <a class="nav-link active text-light" aria-current="page" href="/">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/cloudNest/login">Login</a>
+              <a class="nav-link text-light" href="/cloudNest/login">Login</a>
             </li>
             {% if not user.is_authenticated %}
             <li class="nav-item">
               <a
-                class="nav-link"
+                class="nav-link text-light"
                 href="/cloudNest/register"
                 aria-disabled="true"
                 >Signup</a
@@ -43,7 +43,7 @@
             {% if user.is_authenticated %}
             <li class="nav-item">
                 <a
-                  class="nav-link"
+                  class="nav-link text-light"
                   href="#"
                   aria-disabled="true"
                   >feedback</a
