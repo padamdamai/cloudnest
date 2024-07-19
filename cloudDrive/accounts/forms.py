@@ -10,7 +10,7 @@ class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(label='email')  
     password1 = forms.CharField(label='password', widget=forms.PasswordInput)  
     password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput)  
-    profile_pic = forms.ImageField()
+    # profile_pic = forms.ImageField()
 
 
     def username_clean(self):  
@@ -35,16 +35,16 @@ class CustomUserCreationForm(UserCreationForm):
             raise ValidationError("Password don't match")  
         return password2  
 
-    def profile_picture(self):
-        pro_img = self.cleaned_data['img']
-        return pro_img
+    # def profile_picture(self):
+    #     pro_img = self.cleaned_data['img']
+    #     return pro_img
     
     def save(self, commit = True):  
         user = User.objects.create_user(  
             self.cleaned_data['username'],  
             self.cleaned_data['email'],  
             self.cleaned_data['password1'],  
-            self.cleaned_data['profile_pic']
+            # self.cleaned_data['profile_pic']
         )  
         return user  
 

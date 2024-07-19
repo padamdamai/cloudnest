@@ -12,7 +12,7 @@ def registerUser(request):
         if register_user.is_valid():
             register_user.save()
             messages.add_message(request,messages.SUCCESS,'You are successfully registered')
-            return redirect('/login/')
+            return redirect('/cloudNest/login/')
         else:
             messages.add_message(request,messages.ERROR,'something went wrong please try again!!')
             return render(request,'register.html')
@@ -34,7 +34,7 @@ def login_user(request):
                     return redirect('/')
                 else:
                     messages.add_message(request,messages.ERROR,'Something went wrong')
-                    return redirect('cloudNest/login/')
+                    return redirect('/cloudNest/login/')
 
 
                 
