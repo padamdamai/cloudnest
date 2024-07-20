@@ -12,11 +12,18 @@
 {% endfor %}
 
 <div class=" d-flex h-100vh">
-    <div class="left-side-container w-25 container bg-dark">
-        <a href="#" class="text-decoration-none d-flex">
-            <span class="fs-5 p-2 text-light rounded" style="background-color: rgb(109, 102, 102);">New<span></span>
-            <span class="p-2 text-light">+</span>
-        </a>
+    <div class="left-side-container w-25 container bg-dark pt-5 h-100vh">
+        <div class="text-decoration-none d-flex btn_click" role='button' onclick="showHide()">
+            <span class="fs-5 p-2 text-light rounded" style="background-color: rgb(109, 102, 102);">New <span class="fs-4 p-2">+</span></span>
+        </div>
+        <div class="showitems position-absolute" style="top:18%;left:9%;display: none;">
+            <ul class="bg-dark d-flex flex-column" style="border: 1px solid white;">
+                <li class="pt-4 pe-3 text-light" role="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Folder</li>
+                <li class="pt-4 pe-3"><a href="#" class="text-decoration-none text-light">File</a></li>
+                <li class="pt-4 pe-3"><a href="#" class="text-decoration-none text-light">Upload Folder</a></li>
+                <li class="pt-4 pe-3"><a href="#" class="text-decoration-none text-light">Upload Files</a></li>
+            </ul>
+        </div>
            <ul class="mt-4">
             <li class="p-2"><a href="#" class="text-decoration-none text-light"><i class="bi bi-floppy pe-4"></i> My Drive</li></a>
             <li class="p-2"><a href="#" class="text-decoration-none text-light"><i class="bi bi-share pe-4"></i>Shared with me</li></a>
@@ -26,14 +33,14 @@
            </ul>
     </div>
 
-    <div class="container-fluid w-75float-end bg-dark rounded position-relative me-0" style="height:79vh;">
+    <div class="container-fluid w-75 float-end bg-dark position-relative me-0 pb-3" style="height:auto;padding-bottom: 23px;">
         <div class="container d-flex justify-content-between w-75 ms-5 mt-5 pb-2 sticky-top  text-light">
             <div class="name w-50">Name</div>
             <div class="owner w-25">Owner</div>
             <div class="file_size " style="margin-right: -20%;">File size</div>
         </div>
         <hr class="text-light">
-        <div class="list-group overflow-y-scroll  p-0" style="height:64vh;">
+        <div class="list-group overflow-y-scroll  p-0" style="height:66.8vh;">
                 <a href="" class="text-decoration-none text-light d-flex justify-content-between">
                     <div class="folder_name">document.pdf</div>
                     <div class="folder_name">padam damai</div>
@@ -109,5 +116,19 @@
     </div>
 </div>
 
+<script>
+
+var showitems = document.querySelector('.showitems');
+const showHide= ()=>{
+    if (showitems.style.display === 'none'){
+        showitems.style.display='block' ;
+    }
+    else{
+        showitems.style.display='none' ;
+    }
+ } 
+
+
+</script>
 
 {% endblock content %}
