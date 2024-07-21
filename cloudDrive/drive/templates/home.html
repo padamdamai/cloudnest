@@ -1,6 +1,6 @@
 {% extends 'index.html' %}
 {% block content %}
-
+{% include 'newfolder.html' %}
  {% for msg in messages %}
     {% if msg.level ==  DEFAULT_MESSAGE_LEVELS.SUCCESS %}
     <div class="alert alert-success w-50 m-auto">{{msg}}</div>
@@ -32,6 +32,8 @@
             <li class="p-2"><a href="#" class="text-decoration-none text-light"><i class="bi bi-cloud pe-4"></i>Storage</li></a>
            </ul>
     </div>
+   
+      
 
     <div class="container-fluid w-75 float-end bg-dark position-relative me-0 pb-3" style="height:auto;padding-bottom: 23px;">
         <div class="container d-flex justify-content-between w-75 ms-5 mt-5 pb-2 sticky-top  text-light">
