@@ -8,8 +8,8 @@ def NewFolder(request):
         folder = Folder.objects.create(folderName = folder_name)
         if folder:
             messages.success(request,'folder created successfully')
-            return redirect('CloudNest/login')
+            return redirect('/')
         else:
             messages.error(request," folder hasn't been created please try again")
-            return redirect('CloudNest/login')
-    return render(request,'newfolder.html')
+            return redirect('/')
+    return render(request,'home.html')
