@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>left container</title>
+</head>
+<body>
+    
+    <div class=" d-flex h-100vh">
+        <div class="left-side-container w-25 container bg-dark pt-5 h-100vh">
+            <div class="text-decoration-none d-flex btn_click">
+                <span class="fs-5 p-2 text-light rounded" role='button' onclick="showHide()" style="background-color: rgb(109, 102, 102);">New <span class="fs-4 p-2">+</span></span>
+            </div>
+            <div class="showitems position-absolute" style="top:18%;left:9%;display: none;">
+                <ul class="bg-dark d-flex flex-column" style="border: 1px solid white;" id="myElement">
+                    <li class="pt-4 pe-3 text-light" role="button" data-bs-toggle="modal" data-bs-target="#newFolderModal" >Folder</li>
+                    <li class="pt-4 pe-3"><a href="#" class="text-decoration-none text-light">File</a></li>
+                    <li class="pt-4 pe-3"><a href="#" class="text-decoration-none text-light">Upload Folder</a></li>
+                    <li class="pt-4 pe-3"><a href="#" class="text-decoration-none text-light">Upload Files</a></li>
+                </ul>
+            </div>
+               <ul class="mt-4">
+                <li class="p-2"><a href="#" class="text-decoration-none text-light"><i class="bi bi-floppy pe-4"></i> My Drive</li></a>
+                <li class="p-2"><a href="#" class="text-decoration-none text-light"><i class="bi bi-share pe-4"></i>Shared with me</li></a>
+                <li class="p-2"><a href="#" class="text-decoration-none text-light"><i class="bi bi-clock pe-4"></i> Recent</li></a>
+                <li class="p-2"><a href="#" class="text-decoration-none text-light"><i class="bi bi-trash3 pe-4"></i> Trash</li></a>
+                <li class="p-2"><a href="#" class="text-decoration-none text-light"><i class="bi bi-cloud pe-4"></i>Storage</li></a>
+               </ul>
+        </div>
+       
+
+           <!-- modal of new folder start -->
+           <div class="modal fade" id="newFolderModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">Create new folder</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                 <form action="" method="post">
+                    {% csrf_token %}
+                    <label for="folder-name">Folder Name:</label>
+                    <input type="text" name="folder_name" class="rounded" id="folder-name" required>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                 </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        <!-- modal of new folder ended -->
+</body>
+</html>
