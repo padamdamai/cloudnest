@@ -28,7 +28,7 @@
               <a class="nav-link active text-light" aria-current="page" href="/">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-light" href="/cloudNest/login">Login</a>
+              <a class="nav-link text-light" href="cloudNest/login">Login</a>
             </li>
             {% if not user.is_authenticated %}
             <li class="nav-item">
@@ -79,11 +79,11 @@
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                  <h1 class="modal-title fs-5" id="staticBackdropLabel">{{user.username}}</h1>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  ...
+                  <a href="/cloudNest/logout/">Logout</a>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

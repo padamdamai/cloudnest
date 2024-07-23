@@ -8,7 +8,7 @@
             <span class="fs-5 p-2 text-light rounded" role='button' onclick="showHide()" style="background-color: rgb(109, 102, 102);">New <span class="fs-4 p-2">+</span></span>
         </div>
         <div class="showitems position-absolute" style="top:18%;left:9%;display: none;">
-            <ul class="bg-dark d-flex flex-column" style="border: 1px solid white;">
+            <ul class="bg-dark d-flex flex-column" style="border: 1px solid white;" id="myElement">
                 <li class="pt-4 pe-3 text-light" role="button" data-bs-toggle="modal" data-bs-target="#newFolderModal" >Folder</li>
                 <li class="pt-4 pe-3"><a href="#" class="text-decoration-none text-light">File</a></li>
                 <li class="pt-4 pe-3"><a href="#" class="text-decoration-none text-light">Upload Folder</a></li>
@@ -87,7 +87,15 @@ const showHide= ()=>{
     }
  } 
 
+// outside click 
+   function click_test(event) {
+            const isClickInside = document.getElementById('myElement').contains(event.target);
+            if (!isClickInside) {
+                document.getElementById('myElement').style.display='none'
+            }
+        }
 
+        document.addEventListener('click', click_test);
 </script>
 
 {% endblock content %}
