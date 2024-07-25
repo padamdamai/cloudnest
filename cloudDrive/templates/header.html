@@ -5,10 +5,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>header</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
   </head>
-  <body >
-    <nav class="navbar navbar-expand-lg" style="background-color: rgb(70, 67, 67);">
+  <body>
+    <nav
+      class="navbar navbar-expand-lg"
+      style="background-color: rgb(70, 67, 67)"
+    >
       <div class="container-fluid">
         <a class="navbar-brand fs-3 fw-bolder text-light" href="/">CloudNest</a>
         <button
@@ -25,14 +31,15 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active text-light" aria-current="page" href="/">Home</a>
+              <a class="nav-link active text-light" aria-current="page" href="/"
+                >Home</a
+              >
             </li>
-          {% if not user.is_authenticated %}
-              <li class="nav-item">
-              <a class="nav-link text-light" href="cloudNest/login">Login</a>
-            </li>
-          {% endif %}
             {% if not user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link text-light" href="/cloudNest/login">Login</a>
+            </li>
+            {% endif %} {% if not user.is_authenticated %}
             <li class="nav-item">
               <a
                 class="nav-link text-light"
@@ -41,17 +48,13 @@
                 >Signup</a
               >
             </li>
-            {% endif %}
-            {% if user.is_authenticated %}
+            {% endif %} {% if user.is_authenticated %}
             <li class="nav-item">
-                <a
-                  class="nav-link text-light"
-                  href="#"
-                  aria-disabled="true"
-                  >feedback</a
-                >
-              </li>
-              {% endif %}
+              <a class="nav-link text-light" href="#" aria-disabled="true"
+                >feedback</a
+              >
+            </li>
+            {% endif %}
           </ul>
           <form class="container-fluid d-flex float-end" role="search">
             <input
@@ -62,7 +65,13 @@
             />
           </form>
           {% if user.is_authenticated %}
-          <button type="button" class=" rounded-circle" style="height: 56px;width:56px;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+          <button
+            type="button"
+            class="rounded-circle"
+            style="height: 56px; width: 56px"
+            data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop"
+          >
             <img
               src="{% static 'images/profile.png' %}"
               class="rounded-circle ms-0"
@@ -77,47 +86,53 @@
           </button>
 
           <!-- modal -->
-          <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div
+            class="modal fade"
+            id="staticBackdrop"
+            data-bs-backdrop="static"
+            data-bs-keyboard="false"
+            tabindex="-1"
+            aria-labelledby="staticBackdropLabel"
+            aria-hidden="true"
+          >
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="staticBackdropLabel">{{user.username}}</h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                    {{user.username}}
+                  </h1>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
                 </div>
                 <div class="modal-body">
-                  <a href="/cloudNest/logout/">Logout</a>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Est
+                  consectetur minima sunt?
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Understood</button>
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                  <button type="button" class="btn btn-primary">
+                    <a href="/cloudNest/logout/" class="text-light text-decoration-none"
+                      >Logout</a
+                    >
+                  </button>
                 </div>
               </div>
             </div>
           </div>
-          
+
           {% endif %}
         </div>
       </div>
     </nav>
-
-    <div class="me-2 position-relative" id="show_disapper_img" style="display: none;top: 12%;left:74%;">
-      <ul class="sub-top h-auto w-25 bg-dark text-light rounded p-4 position-absolute ">
-        <div class="text-center p-3">
-          <img
-            src="{% static 'images/profile.png' %}"
-            height="100"
-            width="100"
-            class="rounded-circle"
-            alt="image"
-            
-          />
-        </div>
-        <li class="sub-list text-center">{{user.username}}</li>
-        <li class="sub-list"></li>
-        <li class="sub-list">Setting</li>
-        <li class="sub-list text-warning "><a href="cloudNest/logout/">Logout</a></li>
-      </ul>
-      
-    </div>
   </body>
 </html>

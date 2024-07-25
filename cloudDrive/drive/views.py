@@ -27,5 +27,24 @@ def home(request):
         return render(request,'home.html')
       
 
-def files(request):
-    return render(request,'files.html')
+def files(request,folder_id):
+    folders = InnerFolder.objects.filter(id=folder_id).order_by('-id')
+    if request.method == 'POST':
+            folder_name = request.POST['folder_name']
+            if InnerFolder.objects.filter(folderName = folder_name).exists():
+                messages.error(request," folder name already exists")
+                return redirect('/')
+            else:
+                folder = InnerFolder.objects.create(folderName = folder_name,folderUser = request.user)
+                if folder:
+                    return render(request,'files.html')
+                else:
+                    messages.error(request," folder hasn't been created please try again")
+                    return render(request,'files.html')
+
+    context = {
+        'folder':folders,
+        'folderId':folder_id
+    }
+
+    return render(request,'files.html',context)

@@ -4,3 +4,7 @@ from .models import *
 @admin.register(Folder)
 class Adminfolder(admin.ModelAdmin):
     list_display=('folderName','folderUser')
+
+@admin.register(InnerFolder)
+class AdminInnerFolder(admin.ModelAdmin):
+    list_display=('folderName','folderUser')

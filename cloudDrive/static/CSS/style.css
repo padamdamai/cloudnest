@@ -1,9 +1,14 @@
-.offcanvas {
-    bottom: initial;
-   }
-body{
-    background-color:green;
+.btn{
+    background-color: rgb(109, 102, 102)!important;
 }
-/* .folder_name{
-    width: 10% !important;
-} */
+.show{
+    display: block;
+}
+.hide{
+    display: none;
+}
+.showitems{
+    top:18%;
+    left:9%;
+    display: none;
+}

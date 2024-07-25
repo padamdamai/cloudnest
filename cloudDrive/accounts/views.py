@@ -22,6 +22,7 @@ def registerUser(request):
     }
     return render(request,'register.html',context)
 
+
 def login_user(request):
             if request.method == 'POST':
                 Login = Login_user(request.POST)
@@ -43,8 +44,7 @@ def login_user(request):
             }
             return render(request,'login.html',context)
 
-
-@login_required
 def logout_user(request):
     logout(request)
+    print(" logout function called ")
     return redirect('/')

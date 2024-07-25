@@ -3,5 +3,5 @@ from .views import *
 
 urlpatterns = [
     path('',home),
-    path('cloudNest/logout/',files)    
+    path('cloudNest/files/<int:folder_id>',files,name="folder")    
 ]
