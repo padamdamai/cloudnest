@@ -137,3 +137,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #for @login_required decorator
 LOGIN_URL ='/login'
+
+# media setting 
+MEDIA_ROOT = BASE_DIR/'mediaFiles'
+MEDIA_URL = '/mediafiles/'

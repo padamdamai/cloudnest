@@ -27,7 +27,7 @@
         <div class="list-group overflow-y-scroll  p-0" style="height:72.3vh;">
             {% for folder in folders %}
             <hr class="text-light">
-            <a href="/cloudNest/files/{{folder.id}}" class="text-decoration-none text-light d-flex justify-content-between ps-4 pe-4 pt-0" style="height: 20px;">
+            <a href="{% url 'folder' folder.id %}" class="text-decoration-none text-light d-flex justify-content-between ps-4 pe-4 pt-0" style="height: 20px;">
                 <div class  ="folder_name w-25 ps-3"><i class="bi bi-folder-symlink pe-2 fs-5"></i>{{folder.folderName}}</div>
                 <div class="folder_name">{{folder.created_at}}</div>
                 <div class="folder_name pe-4">8mb</div>
@@ -36,7 +36,6 @@
         <hr class="text-light">             
     </div>
     </div>
-</div>
 
 <script>
 
@@ -47,11 +46,11 @@ btn.addEventListener('click',()=>{
     menu.classList.toggle('show')
     })
 
-document.addEventListener('click', e => {
-    if(!menu.contains(e.target) && e.target !== btn){
-        menu.classList.add('hide')
-    }
-})
+// document.addEventListener('click', e => {
+//     if(!menu.contains(e.target) && e.target !== btn){
+//         menu.classList.add('hide')
+//     }
+// })
   
 </script>
 

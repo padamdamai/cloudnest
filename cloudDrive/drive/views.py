@@ -24,27 +24,30 @@ def home(request):
                 }
         return render(request,"home.html",context)
     else:
-        return render(request,'home.html')
+        return render(request,'home.html')  
       
 
-def files(request,folder_id):
-    folders = InnerFolder.objects.filter(id=folder_id).order_by('-id')
+def innerFolder(request,folder_id):
+    folder_User = Folder.objects.get(id=folder_id)
+    innerFolder = InnerFolder.objects.filter(folderUser=folder_User).order_by('-id')
     if request.method == 'POST':
-            folder_name = request.POST['folder_name']
-            if InnerFolder.objects.filter(folderName = folder_name).exists():
-                messages.error(request," folder name already exists")
-                return redirect('/')
-            else:
-                folder = InnerFolder.objects.create(folderName = folder_name,folderUser = request.user)
-                if folder:
-                    return render(request,'files.html')
-                else:
-                    messages.error(request," folder hasn't been created please try again")
-                    return render(request,'files.html')
+        folder_name = request.POST['folder_name']
+        folder= InnerFolder.objects.create(folderName = folder_name ,folderUser = folder_User)
 
     context = {
-        'folder':folders,
+        'innerFolder':innerFolder,
         'folderId':folder_id
     }
 
-    return render(request,'files.html',context)
+    return render(request,'innerFolder.html',context)   
+
+def uploadFiles(request):
+    uploadedFiles = File.objects.get(fileUser = request.user).order_by('-id')
+    if request.method == 'POST':
+        # print("posted data----------------------------------------------")
+        uploaded = request.POST.get['uploadFile']
+        File.objects.create(file =uploaded,folderUser = request.user)
+    context = {
+        'uploadedFiles':uploadedFiles
+    }
+    return render(request,'home.html',context)

@@ -12,3 +12,9 @@
     left:9%;
     display: none;
 }
+#uploadFile{
+    display: none;
+}
+.uploadFile{
+    cursor: pointer;
+}

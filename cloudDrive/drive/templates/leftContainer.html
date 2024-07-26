@@ -15,9 +15,14 @@
             <div class="showitems position-absolute" id="menu">
                 <ul class="bg-dark d-flex flex-column" style="border: 1px solid white;" id="myElement">
                     <li class="pt-4 pe-3 text-light" role="button" data-bs-toggle="modal" data-bs-target="#newFolderModal" >Folder</li>
-                    <li class="pt-4 pe-3"><a href="#" class="text-decoration-none text-light">File</a></li>
+                    <li class="pt-4 pe-3">
+                      <form action="" method="POST" enctype="multipart/form-data">
+                        <label for="uploadFile" class="text-light uploadFile">Upload File</label>
+                        <input type="file" id="uploadFile" name="uploadFile">
+                        <input type="submit" value="" style="display: none;">
+                      </form>
+                    </li>
                     <li class="pt-4 pe-3"><a href="#" class="text-decoration-none text-light">Upload Folder</a></li>
-                    <li class="pt-4 pe-3"><a href="#" class="text-decoration-none text-light">Upload Files</a></li>
                 </ul>
             </div>
                <ul class="mt-4">
