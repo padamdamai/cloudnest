@@ -11,4 +11,4 @@ class AdminInnerFolder(admin.ModelAdmin):
 
 @admin.register(File)
 class AdminInnerFolder(admin.ModelAdmin):
-    list_display=('file','folderUser')
+    list_display=('file','fileUser')

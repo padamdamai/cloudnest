@@ -16,10 +16,10 @@
                 <ul class="bg-dark d-flex flex-column" style="border: 1px solid white;" id="myElement">
                     <li class="pt-4 pe-3 text-light" role="button" data-bs-toggle="modal" data-bs-target="#newFolderModal" >Folder</li>
                     <li class="pt-4 pe-3">
-                      <form action="" method="POST" enctype="multipart/form-data">
+                      <form action="" method="POST" id="form" enctype="multipart/form-data">
+                        {% csrf_token %}
                         <label for="uploadFile" class="text-light uploadFile">Upload File</label>
                         <input type="file" id="uploadFile" name="uploadFile">
-                        <input type="submit" value="" style="display: none;">
                       </form>
                     </li>
                     <li class="pt-4 pe-3"><a href="#" class="text-decoration-none text-light">Upload Folder</a></li>
@@ -58,5 +58,13 @@
             </div>
           </div>
         <!-- modal of new folder ended -->
+
+<script>
+          // upload files 
+document.getElementById("uploadFile").onchange = function() {
+document.getElementById("form").submit();
+};
+  
+</script>
 </body>
 </html>
