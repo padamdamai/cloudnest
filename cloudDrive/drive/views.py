@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .models import *
+from .forms import *
 from django.contrib import messages
 
 
@@ -7,23 +7,24 @@ from django.contrib import messages
 def home(request):
     if request.user.is_authenticated:
         folders = Folder.objects.filter(folderUser=request.user).order_by('-id')
-    # for uploading folder
+        # for uploading folder
         if request.method == 'POST':
-            foldername = request.POST.get('folder_name')
-            if Folder.objects.filter(folderName = foldername).exists():
-                messages.error(request," folder name already exists")
-                return redirect('/')
-            else:
-                folder = Folder.objects.create(folderName = foldername,folderUser = request.user)
-                if folder:
-                    return redirect('/')
-                else:
-                    messages.error(request," folder hasn't been created please try again")
-                    return redirect('/')
+            if 'createfolder' in request.POST:
+                    foldername = request.POST.get('folder_name')
+                    if Folder.objects.filter(folderName = foldername).exists():
+                        messages.error(request," folder name already exists")
+                        return redirect('/')
+                    else:
+                        folder = Folder.objects.create(folderName = foldername,folderUser = request.user)
+                        if folder:
+                            return redirect('/')
+                        else:
+                            messages.error(request," folder hasn't been created please try again")
+                            return redirect('/')
     # for uploading files
-        if request.method == 'POST':
-            uploaded = request.FILES.get('uploadFile')
-            File.objects.create(file =uploaded,fileUser = request.user)
+            else:
+                uploaded = request.FILES.get('uploadFile')
+                File.objects.create(file =uploaded,fileUser = request.user)
 
         context = {
         'folders' : folders

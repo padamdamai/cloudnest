@@ -20,6 +20,7 @@
                         {% csrf_token %}
                         <label for="uploadFile" class="text-light uploadFile">Upload File</label>
                         <input type="file" id="uploadFile" name="uploadFile">
+                        <button type="submit"  name="createfile" id="submitBtn"></button>
                       </form>
                     </li>
                     <li class="pt-4 pe-3"><a href="#" class="text-decoration-none text-light">Upload Folder</a></li>
@@ -50,7 +51,7 @@
                     <input type="text" name="folder_name" class="rounded" id="folder-name" required>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-primary">Save</button>
+                      <button type="submit" class="btn btn-primary" name="createfolder">Save</button>
                     </div>
                  </form>
                 </div>
