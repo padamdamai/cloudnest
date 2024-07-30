@@ -7,7 +7,7 @@
 </head>
 <body>
     <div class="container-fluid w-75 float-end bg-dark position-relative me-0 pb-3" style="height:auto;padding-bottom: 23px;">
-        {% for msg in messages %}
+    {% for msg in messages %}
         {% if msg.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
         <div class="alert alert-danger w-50 m-auto">{{msg}}</div>
         {% endif %}

@@ -64,7 +64,7 @@
     <div class="container-fluid w-75 float-end bg-dark position-relative me-0 pb-3" style="height:auto;padding-bottom: 23px;">
         {% for msg in messages %}
         {% if msg.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
-        <div class="alert alert-danger w-50 m-auto">{{msg}}</div>
+        <div class="alert alert-warning w-50 m-auto">{{msg}}</div>
         {% endif %}
     {% endfor %}
         <div class="container d-flex justify-content-between w-75 ms-5 mt-5 pb-2 sticky-top  text-light">

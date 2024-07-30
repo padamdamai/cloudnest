@@ -36,7 +36,7 @@ def home(request):
     else:
         return render(request,'home.html')  
       
-
+MAX_FILENAME_LENGTH = 10 
 def innerFolder(request,folder_id):
     parentfolder = Folder.objects.get(id=folder_id)
     innerFolder = InnerFolder.objects.filter(parentFolder=folder_id).order_by('-id')
@@ -48,8 +48,11 @@ def innerFolder(request,folder_id):
         elif 'uploadFile' in request.FILES:
             print("File upload block reached.")
             uploaded_file = request.FILES['uploadFile']
-            print(f"File uploaded: {uploaded_file.name}")
-            InnerFile.objects.create(file=uploaded_file, fileUser=parentfolder)
+            file_name = uploaded_file
+            if len(file_name) > MAX_FILENAME_LENGTH :
+                messages.error(request,"Rename your file name ,length of the file name should be less than 11 character  ")
+            else:
+                InnerFile.objects.create(file=uploaded_file, fileUser=parentfolder)
         else:
             print("No recognized POST fields.")
 
@@ -68,6 +71,7 @@ def subFolder(request,subfolder_id):
     innerFolder = SubFolder.objects.filter(parentFolder=folder_User).order_by('-id')
     if request.method == 'POST':
         folder_name = request.POST['folder_name']
+        folder_name.reduce_file_length()
         SubFolder.objects.create(folderName = folder_name ,parentFolder =folder_User)
 
     context = {
