@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>array</title>
+</head>
+<body>
+    <script>
+        let arr =[1,2,3,4,5,6,'1','b','c',[2,3,5,4,2],{name:'ram'},null,undefined,true,false]
+        document.write(arr)
+        document.write('<br>')
+        document.write(arr[9])
+        document.write('<br>')
+        document.write(arr[9][0])
+        document.write('<br>')
+
+        let [a,b, ...c] = arr
+        document.write('<br> a=>', a)
+        document.write('<br> b=>', b)
+        document.write('<br> other remaining=>', c)
+
+
+        let fruits =['apple','mange','banana','orange']
+        document.write("<br>" + fruits)
+        document.write('<br>')
+        // push =>add new member at the end of the array 
+        fruits.push('pineapple')
+        document.write(fruits)
+        document.write('<br>')
+
+        // unshift  => it add new elements at the beginning of the array
+        fruits.unshift('graves')
+        document.write(fruits)
+        document.write('<br>')
+        // pop => removes the items from the first 
+        fruits.unshift('graves')
+        let remove
+        document.write(fruits)
+        // shift =>remove the members from start of the array
+        fruits.shift('graves')
+        document.write(fruits)
+        document.write('<br>')
+        // splice -add or remove from anywhere in the array
+        // splice(index,number,new_member)
+       /*       index - where to add /remove
+                number - number of members to remove
+                new_member -new_member to add 
+       */
+        document.write('<br>')
+      fruits.splice(2,0,'graves','apple')
+      document.write(fruits)
+        // sort 
+        document.write('<br>')
+        fruits.sort()
+        document.write(fruits)
+        document.write('<br>')
+
+        // reverse
+        fruits.reverse()
+        document.write(fruits)
+        document.write('<br>')
+
+
+        let number = [1,2,3 ,10,23,23,43,53,4,345,123,2345,12345,22324,34,65,34,34.23,30]
+        document.write(number.sort((a,b)=>a-b))
+        document.write(number.sort((a,b)=>b-a))
+        document.write('<br>')
+
+        document.write(number.toString())
+        document.write('<br>')
+
+        // flat -> convert multidimensional aray into single array 
+        document.write(arr.flat())
+        document.write('<br>')
+
+        // slice  -> to create new array from existing 
+        // slice (start index , end index)
+        document.write(fruits.slice(1,4))
+
+        // negative index will count from last 
+        document.write('<br>')
+        // document.write(fruits.slice(-5,-4))
+        // document.write(fruits.slice(-5))
+
+
+
+    </script>
+</body>
+</html>

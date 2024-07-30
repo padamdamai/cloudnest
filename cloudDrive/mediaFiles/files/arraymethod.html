@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>array method</title>
+</head>
+<body>
+    <script>
+        let fruits = ['apple','mange','orange','pineapple','pear','grapes']
+        for(i = 0;i< fruits.length;i++){
+            document.write(i + "<br>")
+        }
+
+        // for each method 
+        // array.foreach(function(member))
+        fruits.forEach((items,i)=>{
+            document.write("<li>",i , " .", items , "</li>")
+        })
+
+        for(var items in fruits){
+            document.write(i, '.',fruits[items] ,"<br>")
+        }
+document.write("<br>")
+        for(var items of fruits){
+            document.write(fruits ,"<br>")
+        }
+
+        document.write("<br>")
+        fruits.map((member,i) =>{
+            document.write("<h4>" , i+1, ")",member,"</h4>")
+        })
+// for each doesn't return value but map array return
+        document.write("map with return <br>")
+        nameoffruits = fruits.map((member,i) =>{
+            return member 
+        })
+        document.write(nameoffruits)
+
+
+        // filter
+        document.write("filter <br>")
+        let filters = fruits.filter(fruits =>fruits.match('ap'))
+        document.write(filters)
+
+        document.write("<br>")
+        let num = [1,3,4,5,6,7,34,24,23,23]
+        filters_s = num.filter(n=> n<20)
+        document.write(filters_s)
+
+        document.write("<br>")
+        document.write("find <br>")
+        // find find the first member that match or meet the condition 
+        let finds  = fruits.find(n => n.match('es'))
+        document.write(finds)
+
+
+        // find index 
+        document.write("<br>")
+        document.write("findindex <br>")
+        // find find the first member that match or meet the condition 
+        // it finds the index , but it index doesn't match than it will give -1 index 
+        let finds_index  = fruits.findIndex(n => n.match('es'))
+        document.write(finds_index)
+
+        document.write("<br>")
+        document.write("findlast <br>")
+        // find find the first member that match or meet the condition 
+        let finds_last  = fruits.findLast(n => n.match('es'))
+        document.write(finds_last)
+
+        document.write("<br>")
+        document.write("findLastIndex <br>")
+        // find find the first member that match or meet the condition 
+        // it finds the index , but it index doesn't match than it will give -1 index 
+        let findsLast_Index  = fruits.findLastIndex(n => n.match('es'))
+        document.write(findsLast_Index)
+
+
+        // reduce 
+
+        // let num = [1,3,4,5,6,7,34,24,23,23]
+
+        document.write("<br><br>reduce<br>")
+        let sum = num.reduce((accumulator,current)=>{
+            document.write("accumulator:", accumulator,"\t",'current:',current,"<br>")
+            return accumulator+current
+
+        })
+
+
+        document.write("<br><br>reduceRight<br>")
+        let sums = num.reduceRight((accumulator,current)=>{
+            document.write("accumulator:", accumulator,"\t",'current:',current,"<br>")
+            return accumulator+ " " ,current
+
+        })
+
+        let person = {
+            name :"ram",
+            address :'KAT',
+            PHONE : '678987'
+        }
+        for(var keys in person){
+            document.write('<br>',keys ,":",person[keys])
+        }
+        document.write("<br>Name:",person.name)
+
+    </script>
+</body>
+</html>

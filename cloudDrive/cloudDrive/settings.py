@@ -141,3 +141,5 @@ LOGIN_URL ='/login'
 # media setting 
 MEDIA_ROOT = BASE_DIR/'mediaFiles'
 MEDIA_URL = '/mediafiles/'
+# DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760  # 10 MB, adjust as needed
+# FILE_UPLOAD_MAX_MEMORY_SIZE = 10485760 # 10 MB, adjust as needed

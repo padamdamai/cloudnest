@@ -1,0 +1,99 @@
+{% extends 'index.html' %}
+{% block content %}
+<style>
+    .show{
+        display: block;
+    }
+    .hide{
+        display: none;
+    }
+</style>
+<div class=" d-flex h-100vh">
+    <div class="left-side-container w-25 container bg-dark pt-5 h-100vh">
+        <div class="text-decoration-none d-flex btn_click">
+            <button class="btn fs-5 p-2 text-light rounded"  role='button' id="btn">New <span class="fs-4 p-2">+</span></button>
+        </div>
+        <div class="showitems position-absolute" id="menu">
+            <ul class="bg-dark d-flex flex-column" style="border: 1px solid white;" id="myElement">
+                <li class="pt-4 pe-3 text-light" role="button" data-bs-toggle="modal" data-bs-target="#newFolderModal" >Folder</li>
+                <li class="pt-4 pe-3"><a href="#" class="text-decoration-none text-light">Upload Files</a></li>
+                <li class="pt-4 pe-3"><a href="#" class="text-decoration-none text-light">Upload Folder</a></li>
+            </ul>
+        </div>
+           <ul class="mt-4">
+            <li class="p-2"><a href="#" class="text-decoration-none text-light"><i class="bi bi-floppy pe-4"></i> My Drive</li></a>
+            <li class="p-2"><a href="#" class="text-decoration-none text-light"><i class="bi bi-share pe-4"></i>Shared with me</li></a>
+            <li class="p-2"><a href="#" class="text-decoration-none text-light"><i class="bi bi-clock pe-4"></i> Recent</li></a>
+            <li class="p-2"><a href="#" class="text-decoration-none text-light"><i class="bi bi-trash3 pe-4"></i> Trash</li></a>
+            <li class="p-2"><a href="#" class="text-decoration-none text-light"><i class="bi bi-cloud pe-4"></i>Storage</li></a>
+           </ul>
+    </div>
+
+
+  <!-- modal of new folder start -->
+  <div class="modal fade" id="newFolderModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Create new folder</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+         <form action="{% url 'subFolder' subfolderId %}" method="post">
+            {% csrf_token %}
+            <label for="folder-name">Folder Name:</label>
+            <input type="text" name="folder_name" class="rounded" id="folder-name" required>
+            <div class="modal-footer">
+              <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button class="btn btn-primary">Save</button>
+            </div>
+         </form>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- modal of new folder ended -->
+
+    <div class="container-fluid w-75 float-end bg-dark position-relative me-0 pb-3" style="height:auto;padding-bottom: 23px;">
+        {% for msg in messages %}
+        {% if msg.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+        <div class="alert alert-danger w-50 m-auto">{{msg}}</div>
+        {% endif %}
+    {% endfor %}
+        <div class="container d-flex justify-content-between w-75 ms-5 mt-5 pb-2 sticky-top  text-light">
+            <div class="name w-50">Name</div>
+            <div class="owner w-25">Created at</div>
+            <div class="file_size " style="margin-right: -20%;">File/folder size</div>
+        </div>
+        <div class="list-group overflow-y-scroll  p-0" style="height:72.3vh;">
+            {% for folder in subfolder %}
+            <hr class="text-light">
+            <a href="" class="text-decoration-none text-light d-flex justify-content-between ps-4 pe-4 pt-0" style="height: 20px;">
+                <div class  ="folder_name w-25 ps-3"><i class="bi bi-folder-symlink pe-2 fs-5"></i>{{folder.folderName}}</div>
+                <div class="folder_name">{{folder.created_at}}</div>
+                <div class="folder_name pe-4">8mb</div>
+            </a>
+            {% endfor %}
+        <hr class="text-light">             
+    </div>
+    </div>
+</div>
+
+<script>
+
+var menu = document.getElementById('menu')
+var btn = document.getElementById("btn")
+
+btn.addEventListener('click',()=>{
+    menu.classList.toggle('show')
+    })
+
+// document.addEventListener('click', e => {
+//     if(!menu.contains(e.target) && e.target !== btn){
+//         menu.classList.add('hide')
+//     }
+// })
+</script>
+
+
+{% endblock content %}

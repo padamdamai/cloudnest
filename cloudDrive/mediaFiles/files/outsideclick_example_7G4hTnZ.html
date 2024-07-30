@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Click Outside Example</title>
+    <style>
+        #myElement {
+            width: 200px;
+            height: 200px;
+            background-color: lightblue;
+            margin: 100px auto;
+            text-align: center;
+            line-height: 200px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="myElement">Click inside me!</div>
+
+    <script>
+        function click_test(event) {
+            const isClickInside = document.getElementById('myElement').contains(event.target);
+
+            document.getElementById('myElement').innerHTML = "INSIDE"
+
+            if (!isClickInside) {
+                handleClickOutside();
+            }
+        }
+
+        document.addEventListener('click', click_test);
+
+        function handleClickOutside() {
+            document.getElementById('myElement').innerHTML = "OUTSIDE"
+        }
+    </script>
+</body>
+
+</html>

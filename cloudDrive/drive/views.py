@@ -1,12 +1,14 @@
 from django.shortcuts import render,redirect
-from .forms import *
+from .models import *
 from django.contrib import messages
+from django.http import HttpResponse
 
 
 # Create your views here.
 def home(request):
     if request.user.is_authenticated:
         folders = Folder.objects.filter(folderUser=request.user).order_by('-id')
+        files = File.objects.filter(fileUser=request.user).order_by('-id')
         # for uploading folder
         if request.method == 'POST':
             if 'createfolder' in request.POST:
@@ -27,7 +29,8 @@ def home(request):
                 File.objects.create(file =uploaded,fileUser = request.user)
 
         context = {
-        'folders' : folders
+        'folders' : folders,
+        'files':files
                 }
         return render(request,"home.html",context)
     else:
@@ -35,26 +38,39 @@ def home(request):
       
 
 def innerFolder(request,folder_id):
-    folder_User = Folder.objects.get(id=folder_id)
-    innerFolder = InnerFolder.objects.filter(folderUser=folder_User).order_by('-id')
+    parentfolder = Folder.objects.get(id=folder_id)
+    innerFolder = InnerFolder.objects.filter(parentFolder=folder_id).order_by('-id')
     if request.method == 'POST':
-        folder_name = request.POST['folder_name']
-        folder= InnerFolder.objects.create(folderName = folder_name ,folderUser = folder_User)
+        if 'folder_name' in request.POST:
+            folder_name = request.POST.get('folder_name')
+            InnerFolder.objects.create(folderName=folder_name, parentFolder=parentfolder)
+        elif 'uploadFile' in request.FILES:
+            print("File upload block reached.")
+            uploaded_file = request.FILES['uploadFile']
+            print(f"File uploaded: {uploaded_file.name}")
+            InnerFile.objects.create(file=uploaded_file, fileUser=parentfolder)
+        else:
+            print("No recognized POST fields.")
+
+
 
     context = {
         'innerFolder':innerFolder,
-        'folderId':folder_id
+        'folderId':folder_id,
     }
 
     return render(request,'innerFolder.html',context)   
 
-# def uploadFiles(request):
-#     uploadedFiles = File.objects.get(fileUser = request.user)
-#     if request.method == 'POST':
-#         # print("posted data----------------------------------------------")
-#         uploaded = request.POST.get('uploadFile')
-#         File.objects.create(file =uploaded,fileUser = request.user)
-#     context = {
-#         'uploadedFiles':uploadedFiles
-#     }
-#     return render(request,'home.html')
+def subFolder(request,subfolder_id):
+    folder_User = InnerFolder.objects.get(id = subfolder_id,)
+    innerFolder = SubFolder.objects.filter(parentFolder=folder_User).order_by('-id')
+    if request.method == 'POST':
+        folder_name = request.POST['folder_name']
+        SubFolder.objects.create(folderName = folder_name ,parentFolder =folder_User)
+
+    context = {
+        'subfolder':innerFolder,
+        'subfolderId':subfolder_id
+    }
+
+    return render(request,'subfolder.html',context)   
