@@ -40,6 +40,7 @@ def home(request):
 def innerFolder(request,folder_id):
     parentfolder = Folder.objects.get(id=folder_id)
     innerFolder = InnerFolder.objects.filter(parentFolder=folder_id).order_by('-id')
+    innerFile = InnerFile.objects.filter(fileUser = parentfolder)
     if request.method == 'POST':
         if 'folder_name' in request.POST:
             folder_name = request.POST.get('folder_name')
@@ -57,6 +58,7 @@ def innerFolder(request,folder_id):
     context = {
         'innerFolder':innerFolder,
         'folderId':folder_id,
+        'innerFile':innerFile
     }
 
     return render(request,'innerFolder.html',context)   
