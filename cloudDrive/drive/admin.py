@@ -20,3 +20,7 @@ class AdminSubFolder(admin.ModelAdmin):
 @admin.register(InnerFile)
 class AdminInnerFile(admin.ModelAdmin):
     list_display=('file','fileUser')
+
+@admin.register(SubFile)
+class AdminInnerFile(admin.ModelAdmin):
+    list_display=('file','fileUser')

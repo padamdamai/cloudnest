@@ -5,6 +5,7 @@ from django.http import HttpResponse
 
 
 # Create your views here.
+MAX_FILENAME_LENGTH = 15 
 def home(request):
     if request.user.is_authenticated:
         folders = Folder.objects.filter(folderUser=request.user).order_by('-id')
@@ -23,10 +24,18 @@ def home(request):
                         else:
                             messages.error(request," folder hasn't been created please try again")
                             return redirect('/')
+            elif 'uploadFolder' in request.POST:
+                uploadFolder = request.FILES.get('uploadFOLDER')
+                Folder.objects.create(folderName = uploadFolder,folderUser = request.user)
+                
     # for uploading files
             else:
                 uploaded = request.FILES.get('uploadFile')
-                File.objects.create(file =uploaded,fileUser = request.user)
+                file_name = uploaded.name
+                if len(file_name) > MAX_FILENAME_LENGTH:
+                    messages.error(request,"Rename your file name ,length of the file name should be less than 11 character  ")
+                else:
+                    File.objects.create(file =uploaded,fileUser = request.user)
 
         context = {
         'folders' : folders,
@@ -36,7 +45,6 @@ def home(request):
     else:
         return render(request,'home.html')  
       
-MAX_FILENAME_LENGTH = 10 
 def innerFolder(request,folder_id):
     parentfolder = Folder.objects.get(id=folder_id)
     innerFolder = InnerFolder.objects.filter(parentFolder=folder_id).order_by('-id')
@@ -46,9 +54,8 @@ def innerFolder(request,folder_id):
             folder_name = request.POST.get('folder_name')
             InnerFolder.objects.create(folderName=folder_name, parentFolder=parentfolder)
         elif 'uploadFile' in request.FILES:
-            print("File upload block reached.")
             uploaded_file = request.FILES['uploadFile']
-            file_name = uploaded_file
+            file_name = uploaded_file.name
             if len(file_name) > MAX_FILENAME_LENGTH :
                 messages.error(request,"Rename your file name ,length of the file name should be less than 11 character  ")
             else:
@@ -56,7 +63,7 @@ def innerFolder(request,folder_id):
         else:
             print("No recognized POST fields.")
 
-
+    
 
     context = {
         'innerFolder':innerFolder,
@@ -66,17 +73,25 @@ def innerFolder(request,folder_id):
 
     return render(request,'innerFolder.html',context)   
 
-def subFolder(request,subfolder_id):
+def subFile(request,subfolder_id):
     folder_User = InnerFolder.objects.get(id = subfolder_id,)
-    innerFolder = SubFolder.objects.filter(parentFolder=folder_User).order_by('-id')
+    subFile = SubFile.objects.filter(fileUser=folder_User).order_by('-id')
     if request.method == 'POST':
-        folder_name = request.POST['folder_name']
-        folder_name.reduce_file_length()
-        SubFolder.objects.create(folderName = folder_name ,parentFolder =folder_User)
+            uploaded_file = request.FILES['uploadFile']
+            file_name = uploaded_file.name
+            if len(file_name) > MAX_FILENAME_LENGTH :
+                messages.error(request,"Rename your file name ,length of the file name should be less than 11 character  ")
+            else:
+                SubFile.objects.create(file=uploaded_file, fileUser=folder_User)
 
     context = {
-        'subfolder':innerFolder,
-        'subfolderId':subfolder_id
+        'subfile':subFile,  
+        'innerfolderId':subfolder_id
     }
 
     return render(request,'subfolder.html',context)   
+
+
+def testuploadfolder(request):
+    if request.method == 'POST':
+        print(f'hello uploaded folder')

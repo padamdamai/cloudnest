@@ -39,3 +39,13 @@ class InnerFile(models.Model):
 
     def __str__(self):
         return self.file.name
+    
+class SubFile(models.Model):
+    file = models.FileField(upload_to='files',null=False)
+    fileUser = models.ForeignKey(InnerFolder,on_delete=models.CASCADE )
+    created_at = models.DateTimeField(auto_now_add=True )
+
+    def __str__(self):
+        return self.file.name
+
+

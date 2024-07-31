@@ -76,7 +76,7 @@
         {% if innerFolder %}
             {% for folder in innerFolder %}
             <hr class="text-light">
-            <a href="{% url 'subFolder' folder.id %}" class="text-decoration-none text-light d-flex justify-content-between ps-4 pe-4 pt-0" style="height: 20px;">
+            <a href="{% url 'subFile' folderId %}" class="text-decoration-none text-light d-flex justify-content-between ps-4 pe-4 pt-0" style="height: 20px;">
                 <div class  ="folder_name w-25 ps-3"><i class="bi bi-folder-symlink pe-2 fs-5"></i>{{folder.folderName}}</div>
                 <div class="folder_name">{{folder.created_at}}</div>
                 <div class="folder_name pe-4">8mb</div>

@@ -12,9 +12,9 @@
     left:9%;
     display: none;
 }
-#uploadFile, #submitBtn{
+#uploadFile, #submitBtn,#folderInput{
     display: none;
 }
-.uploadFile{
+.uploadFile,.uploadFolder{
     cursor: pointer;
 }

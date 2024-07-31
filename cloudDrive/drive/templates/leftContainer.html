@@ -23,7 +23,14 @@
                         <button type="submit"  name="createfile" id="submitBtn"></button>
                       </form>
                     </li>
-                    <li class="pt-4 pe-3"><a href="#" class="text-decoration-none text-light">Upload Folder</a></li>
+                    <li class="pt-4 pe-3">
+                          <form id="uploadForm" method="POST">
+                               {% csrf_token %}
+                              <label for="folderInput" class="text-light uploadFolder">Upload Folder</label>
+                              <input type="file" id="folderInput" webkitdirectory directory multiple>
+                              <button type="submit" id='submitBtn' name="testupload"></button>
+                          </form>
+                    </li>
                 </ul>
             </div>
                <ul class="mt-4">
@@ -66,6 +73,55 @@ document.getElementById("uploadFile").onchange = function() {
 document.getElementById("form").submit();
 };
   
+
+  // uploading folder
+  document.getElementById('folderInput').addEventListener('change', function(event) {
+
+            const files = event.target.files;
+            const folders = new Set();
+
+            // Collect unique folder paths
+            for (const file of files) {
+                const folderPath = file.webkitRelativePath.split('/').slice(0, -1).join('/');
+                folders.add(folderPath);
+            }
+
+            // Display folders
+            folders.forEach(folder => {
+                const listItem = document.createElement('li');
+                listItem.textContent = folder;
+                folderList.appendChild(listItem);
+            });
+
+            // Store folder information in a hidden field for submission
+            document.getElementById('uploadForm').dataset.folderInfo = JSON.stringify(Array.from(folders));
+        });
+
+        document.getElementById('uploadForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const folderInfo = document.getElementById('uploadForm').dataset.folderInfo;
+
+            // Send folder information to the server
+            fetch('{% url "testuploadfolder" %}', { // Adjust the URL to your Django view
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                },
+                body: JSON.stringify({ folders: JSON.parse(folderInfo) }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        });
+
+
+
 </script>
 </body>
 </html>
