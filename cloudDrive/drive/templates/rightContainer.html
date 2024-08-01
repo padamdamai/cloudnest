@@ -21,25 +21,58 @@
         {% if folders %}
             {% for folder in folders %}
             <hr class="text-light">
-            <a href="{% url 'folder' folder.id %}" class="text-decoration-none text-light d-flex justify-content-between ps-4 pe-4 pt-0" style="height: 20px;">
+            <a href="{% url 'folder' folder.id %}" id="folderRightClick" class="text-decoration-none text-light d-flex justify-content-between ps-4 pe-4 pt-0" style="height: 20px;">
                 <div class  ="folder_name w-25 ps-3"><i class="bi bi-folder-symlink pe-2 fs-5"></i>{{folder.folderName}}</div>
                 <div class="folder_name">{{folder.created_at}}</div>
                 <div class="folder_name pe-4">8mb</div>
             </a>
+            <div class="folderhideRightClick">
+                <ul>
+                    <li><a href="">Rename Folder</a></li>
+                    <li><a href="">Delete</a></li>
+                    <li><a href="">Download</a></li>
+                </ul>
+            </div>
             {% endfor %}
         {% endif %}
         {% if files %}
             {% for file in files %}
                 <hr class="text-light">
-                <a href="" class="text-decoration-none text-light d-flex justify-content-between ps-4 pe-4 pt-0" style="height: 20px;">
+                <a href="" id="fileRightClick" class="text-decoration-none text-light d-flex justify-content-between ps-4 pe-4 pt-0" style="height: 20px;">
                     <div class  ="folder_name w-25 ps-3"><i class="bi bi-file-earmark-text fs-4 pe-2"></i>{{file.file}}</div>
                     <div class="folder_name">{{file.created_at}}</div>
                     <div class="folder_name pe-4">8mb</div>
                 </a>
+                <div class="filehideRightClick">
+                    <ul>
+                        <li><a href="">Rename File</a></li>
+                        <li><a href="">Delete</a></li>
+                        <li><a href="">Download</a></li>
+                    </ul>
+                </div>
             {% endfor %}
         {% endif %}
         <hr class="text-light">             
     </div>
     </div>
+
+    <script>
+// for folder
+const rightclickFolder = document.querySelector('#folderRightClick')
+const rightContentfolder = document.querySelector('.folderhideRightClick')
+
+rightclickFolder.addEventListener('contextmenu',(event)=>{
+event.preventDefault();
+rightContentfolder.classList.add('foldershowRightClick')
+})
+
+window.addEventListener('click',()=>{
+rightContentfolder.classList.remove('foldershowRightClick')
+})
+// for file
+// const rightclickfile= document.querySelector('fileRightClick')
+// const rightContentfile = document.querySelector('.filehideRightClick')
+
+    </script>
 </body>
 </html>

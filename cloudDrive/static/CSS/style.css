@@ -18,3 +18,17 @@
 .uploadFile,.uploadFolder{
     cursor: pointer;
 }
+.folderhideRightClick{
+display: none;
+}
+.filehideRightClick{
+    display: none;
+}
+.foldershowRightClick{
+    display: block;
+    background-color: blue;
+    color: white;
+    }
+.fileshowRightClick{
+        display: block;
+    }
