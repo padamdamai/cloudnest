@@ -74,53 +74,6 @@ document.getElementById("form").submit();
 };
   
 
-  // uploading folder
-  document.getElementById('folderInput').addEventListener('change', function(event) {
-
-            const files = event.target.files;
-            const folders = new Set();
-
-            // Collect unique folder paths
-            for (const file of files) {
-                const folderPath = file.webkitRelativePath.split('/').slice(0, -1).join('/');
-                folders.add(folderPath);
-            }
-
-            // Display folders
-            folders.forEach(folder => {
-                const listItem = document.createElement('li');
-                listItem.textContent = folder;
-                folderList.appendChild(listItem);
-            });
-
-            // Store folder information in a hidden field for submission
-            document.getElementById('uploadForm').dataset.folderInfo = JSON.stringify(Array.from(folders));
-        });
-
-        document.getElementById('uploadForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent the default form submission
-
-            const folderInfo = document.getElementById('uploadForm').dataset.folderInfo;
-
-            // Send folder information to the server
-            fetch('{% url "testuploadfolder" %}', { // Adjust the URL to your Django view
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
-                },
-                body: JSON.stringify({ folders: JSON.parse(folderInfo) }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-        });
-
-
 
 </script>
 </body>

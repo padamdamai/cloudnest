@@ -1,8 +1,10 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from .models import *
 from django.contrib import messages
 from django.http import HttpResponse
-
+import os
+import zipfile
+import io
 
 # Create your views here.
 MAX_FILENAME_LENGTH = 15 
@@ -91,7 +93,72 @@ def subFile(request,subfolder_id):
 
     return render(request,'subfolder.html',context)   
 
+def renameFolder(request,rename_id):
+    if request.user.is_authenticated:
+        folders = Folder.objects.filter(folderUser=request.user).order_by('-id')
+        files = File.objects.filter(fileUser=request.user).order_by('-id')
+        
+        # Get the folder instance to be renamed
+        folder_instance = get_object_or_404(Folder, id=rename_id, folderUser=request.user)
+        
+        if request.method == 'POST':
+            folder_name = request.POST.get('renameFolder')
+            
+            if folder_name:
+                folder_instance.folderName = folder_name
+                folder_instance.save()
+                print('updated folder name')
+                return redirect('/')
 
-def testuploadfolder(request):
-    if request.method == 'POST':
-        print(f'hello uploaded folder')
+            
+
+    context = {
+        'folders':folders,
+        'files':files,
+        'rename_id': rename_id
+    }
+    return render(request,'rename.html',context)
+
+def deleteFolder(request, delete_id):
+    if request.user.is_authenticated:
+        folder_instance = get_object_or_404(Folder, id=delete_id, folderUser=request.user)
+        folder_instance.delete()
+        print('folder deleted')
+        return redirect('/')
+    else:
+        print('else part ')
+
+
+def download_folder(request, folder_id):
+    if request.user.is_authenticated:
+        # Fetch the folder instance and ensure it belongs to the authenticated user
+        folder_instance = get_object_or_404(Folder, id=folder_id, folderUser=request.user)
+
+        # Path where the folder's contents are located
+        base_path = '/path/to/your/folders'
+        folder_path = os.path.join(base_path, folder_instance.folderName)
+
+        # Create a BytesIO buffer to hold the ZIP file content
+        buffer = io.BytesIO()
+
+        # Create a ZIP file in the buffer
+        with zipfile.ZipFile(buffer, 'w', zipfile.ZIP_DEFLATED) as zip_file:
+            # Walk through the directory and add files to the ZIP file
+            for root, dirs, files in os.walk(folder_path):
+                for file_name in files:
+                    file_path = os.path.join(root, file_name)
+                    # Calculate the relative path for the file within the ZIP
+                    # Relative to the base folder
+                    arcname = os.path.relpath(file_path, base_path)
+                    zip_file.write(file_path, arcname=arcname)
+
+        # Set the buffer's position to the beginning
+        buffer.seek(0)
+
+        # Create an HTTP response with the ZIP file
+        response = HttpResponse(buffer, content_type='application/zip')
+        response['Content-Disposition'] = f'attachment; filename="{folder_instance.folderName}.zip"'
+        
+        return response
+    else:
+        return redirect('login')  # Redirect to login if the user is not authenticated
