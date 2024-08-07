@@ -18,7 +18,7 @@
 .uploadFile,.uploadFolder{
     cursor: pointer;
 }
-.folderhideRightClick, .filehideRightClick {
+.folderhideRightClick,.filehideRightClick{
     display: none;
     position: absolute;
     top: -23%;
@@ -51,4 +51,7 @@
     padding: 9px;
     top: 21px;
     left: 4rem;
+}
+.file_name_width{
+    max-width: 30%;
 }

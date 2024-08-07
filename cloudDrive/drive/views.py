@@ -102,16 +102,13 @@ def renameFolder(request,rename_id):
         folder_instance = get_object_or_404(Folder, id=rename_id, folderUser=request.user)
         
         if request.method == 'POST':
-            folder_name = request.POST.get('renameFolder')
-            
-            if folder_name:
-                folder_instance.folderName = folder_name
-                folder_instance.save()
-                print('updated folder name')
-                return redirect('/')
-
-            
-
+                folder_name = request.POST.get('renameFolder')
+                
+                if folder_name:
+                    folder_instance.folderName = folder_name
+                    folder_instance.save()
+                    print('updated folder name')
+                    return redirect('/')
     context = {
         'folders':folders,
         'files':files,
@@ -162,3 +159,27 @@ def download_folder(request, folder_id):
         return response
     else:
         return redirect('login')  # Redirect to login if the user is not authenticated
+
+
+def renameFile(request,renameFile_id):
+    if request.user.is_authenticated:
+        folders = Folder.objects.filter(folderUser=request.user).order_by('-id')
+        files = File.objects.filter(fileUser=request.user).order_by('-id')
+        
+        # Get the folder instance to be renamed
+        file_instance = get_object_or_404(File, id=renameFile_id, fileUser=request.user)
+        
+        if request.method == 'POST':
+            file_name = request.POST.get('renameFile')
+            
+            if file_name:
+                file_instance.file = file_name
+                file_instance.save()
+                print('updated folder name')
+                return redirect('/')
+    context = {
+        'folders':folders,
+        'files':files,
+        'rename_id': renameFile_id
+    }
+    return render(request,'renameFIle.html',context)

@@ -21,15 +21,7 @@
                         <hr class="text-light">
                         <a href="{% url 'folder' folder.id %}" class="double-click-link context_items text-decoration-none text-light d-flex justify-content-between ps-4 pe-4 pt-0" style="height: 20px;">
                             <div class="folder_name w-25 ps-3"><i class="bi bi-folder-symlink pe-2 fs-5"></i>
-                                {% if folder.id == rename_id %}
-                                <form action="{% url 'renameFolder' folder.id %}" method="POST"  id="renameform">
-                                    {% csrf_token %}
-                                    <input type="text" name="renameFolder" id="renameFolder" value="{{ folder.folderName }}" class="smallForm">
-
-                                </form>
-                                {% else %}
                                 {{ folder.folderName }}
-                            {% endif %}
                             </div>
                             <div class="folder_name">{{folder.created_at}}</div>
                             <div class="folder_name pe-4">8mb</div>
@@ -47,9 +39,16 @@
             {% if files %}
                 {% for file in files %}
                     <hr class="text-light">
-                    <a href="" id="fileRightClick" class="text-decoration-none text-light d-flex justify-content-between ps-4 pe-4 pt-0" style="height: 20px;">
-                        <div class="folder_name  ps-3"><i class="bi bi-file-earmark-text fs-4 pe-2"></i>
-                            {{ file.file}}
+                    <a href="" id="fileRightClick" class="context_items_file text-decoration-none text-light d-flex justify-content-between ps-4 pe-4 pt-0" style="height: 20px;">
+                        <div class="folder_name file_name_width ps-3 d-flex "><i class="bi bi-file-earmark-text fs-4 pe-2"></i>
+                            {% if file.id == rename_id %}
+                            <form action="{% url 'renameFile' file.id %}" method="POST"  id="renameform_file">
+                                {% csrf_token %}
+                                <input type="text" name="renameFile" id="renameFile" value="{{ file.file }}" class="smallForm bg-danger">
+                            </form>
+                            {% else %}
+                            {{ file.file }}
+                        {% endif %}
                         </div>
                         <div class="folder_name">{{file.created_at}}</div>
                         <div class="folder_name pe-4">8mb</div>
@@ -63,12 +62,12 @@
         <script>
             // For folder context menu
             document.addEventListener('DOMContentLoaded', () => {
-                document.querySelectorAll('.context_items').forEach(item => {
+                document.querySelectorAll('.context_items_file').forEach(item => {
                     item.addEventListener('contextmenu', (e) => {
                         e.preventDefault();
                         
                         // Hide any visible context menu
-                        document.querySelectorAll('.folderhideRightClick').forEach(menu => {
+                        document.querySelectorAll('.fhideRightClick').forEach(menu => {
                             menu.style.display = 'none';
                         });
 
@@ -102,9 +101,14 @@
                 });
             });
 
-          // upload folder 
+          // upload folder_rename 
           document.getElementById("renameFolder").onchange = function() {
 document.getElementById("renameform").submit();
+};
+
+          // upload fiile_rename 
+          document.getElementById("renameFile").onchange = function() {
+document.getElementById("renameform_file").submit();
 };
 
         </script>
