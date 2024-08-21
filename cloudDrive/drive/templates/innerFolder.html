@@ -75,11 +75,18 @@
         {% if innerFolder %}
             {% for folder in innerFolder %}
             <hr class="text-light">
-            <a href="{% url 'subFile' folderId %}" class="text-decoration-none text-light d-flex justify-content-between ps-4 pe-4 pt-0" style="height: 20px;">
+            <a href="{% url 'subFile' folderId %}" class="context_items  text-decoration-none text-light d-flex justify-content-between ps-4 pe-4 pt-0" style="height: 20px;">
                 <div class  ="folder_name w-25 ps-3"><i class="bi bi-folder-symlink pe-2 fs-5"></i>{{folder.folderName}}</div>
                 <div class="folder_name">{{folder.created_at}}</div>
                 <div class="folder_name pe-4">8mb</div>
             </a>
+             <div class="folderhideRightClick">
+                        <ul>
+                            <li><a href="{% url  'renameFolder' folder.id %}">Rename Folder</a></li>
+                            <li><a href="{% url  'deleteFolder' folder.id %}">Delete</a></li>
+                            <li><a href="{% url 'dowlnoadFolder' folder.id %}">Download</a></li>
+                        </ul>
+                    </div>
             {% endfor %}
           {% endif %}
           {% if innerFile %}
@@ -117,6 +124,35 @@ btn.addEventListener('click',()=>{
 document.getElementById("uploadFile").onchange = function() {
 document.getElementById("form").submit();
 };
+
+                // For file context menu(right click)
+             document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.context_items').forEach(item => {
+                item.addEventListener('contextmenu', (e) => {
+                    e.preventDefault();
+                    
+                    // Hide any visible context menu
+                    document.querySelectorAll('.folderhideRightClick').forEach(menu => {
+                        menu.style.display = 'none';
+                    });
+
+                    // Show the context menu for the clicked folder
+                    const contextMenu = item.nextElementSibling;
+                    contextMenu.style.display = 'block';
+                    contextMenu.style.left = '220px';
+                    contextMenu.style.top = '29px';
+
+                    // Hide the context menu when clicking anywhere else
+                    document.addEventListener('click', function hideContextMenu(e) {
+                        if (!contextMenu.contains(e.target)) {
+                            contextMenu.style.display = 'none';
+                            document.removeEventListener('click', hideContextMenu);
+                        }
+                    });
+                });
+            });
+        });
+
 </script>
 
 
