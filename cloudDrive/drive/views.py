@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect,get_object_or_404
+from django.shortcuts import render,redirect,get_object_or_404,reverse
 from .models import *
 from django.contrib import messages
 from django.http import HttpResponse
@@ -183,3 +183,35 @@ def renameFile(request,renameFile_id):
         'rename_id': renameFile_id
     }
     return render(request,'renameFIle.html',context)
+
+
+def innerFolderRename(request,folder_id ,innerFolderRename):
+    parentfolder = Folder.objects.get(id=folder_id)
+    innerFolder = InnerFolder.objects.filter(parentFolder=folder_id).order_by('-id')
+    innerFile = InnerFile.objects.filter(fileUser = parentfolder)
+    if request.method == 'POST':
+        if 'folder_name' in request.POST:
+            folder_name = request.POST.get('folder_name')
+            InnerFolder.objects.create(folderName=folder_name, parentFolder=parentfolder)
+        elif 'uploadFile' in request.FILES:
+            uploaded_file = request.FILES['uploadFile']
+            file_name = uploaded_file.name
+            if len(file_name) > MAX_FILENAME_LENGTH :
+                messages.error(request,"Rename your file name ,length of the file name should be less than 11 character  ")
+            else:
+                InnerFile.objects.create(file=uploaded_file, fileUser=parentfolder)
+        else:
+            print("No recognized POST fields.")
+
+    rename_url = reverse('innerFolderRename', args=[folder_id, innerFolderRename])
+
+    context = {
+        'innerFolder':innerFolder,
+        'folderId':folder_id,
+        'innerFile':innerFile,
+        # 'innerFolderRename':innerFolderRename
+        'rename_url': rename_url ,
+        'renaming_folder_id': innerFolderRename 
+    }
+
+    return render(request,'innerFolderRename.html',context) 
