@@ -55,3 +55,9 @@
 .file_name_width{
     max-width: 30%;
 }
+
+#renameInnerform{
+    position: absolute;
+    top: 0rem;
+    padding-left: 29px;
+}

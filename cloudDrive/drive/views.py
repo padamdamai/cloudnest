@@ -185,7 +185,7 @@ def renameFile(request,renameFile_id):
     return render(request,'renameFIle.html',context)
 
 
-def innerFolderRename(request,folder_id ,innerFolderRename):
+def innerFolderRename(request,folder_id ,innerFolderRename_id):
     parentfolder = Folder.objects.get(id=folder_id)
     innerFolder = InnerFolder.objects.filter(parentFolder=folder_id).order_by('-id')
     innerFile = InnerFile.objects.filter(fileUser = parentfolder)
@@ -202,16 +202,11 @@ def innerFolderRename(request,folder_id ,innerFolderRename):
                 InnerFile.objects.create(file=uploaded_file, fileUser=parentfolder)
         else:
             print("No recognized POST fields.")
-
-    rename_url = reverse('innerFolderRename', args=[folder_id, innerFolderRename])
-
     context = {
         'innerFolder':innerFolder,
         'folderId':folder_id,
         'innerFile':innerFile,
-        # 'innerFolderRename':innerFolderRename
-        'rename_url': rename_url ,
-        'renaming_folder_id': innerFolderRename 
+        'renaming_folder_id': innerFolderRename_id 
     }
 
     return render(request,'innerFolderRename.html',context) 
