@@ -78,7 +78,7 @@
             <div href="{% url 'subFile' folderId %}" class="context_items  text-decoration-none text-light d-flex justify-content-between ps-4 pe-4 pt-0 position-relative" style="height: 20px;">
                 <div class="folder_name w-25 ps-3"><i class="bi bi-folder-symlink pe-2 fs-5"></i>
                     {% if folder.id  == renaming_folder_id %}
-                    <form action="{% url 'innerFolderRename' folder.id renaming_folder_id %}" method="POST"  id="renameInnerform">
+                    <form action="{% url 'innerFolderRename' folderId renaming_folder_id %}" method="POST"  id="renameInnerform">
                         {% csrf_token %}
                         <input type="text" name="renameFolder" id="renameFolder" value="{{ folder.folderName }}" class="renameinnerfolder">
 
@@ -111,17 +111,17 @@
 
 <script>
 
-var menu = document.getElementById('menu')
-var btn = document.getElementById("btn")
+// var menu = document.getElementById('menu')
+// var btn = document.getElementById("btn")
 
-btn.addEventListener('click',()=>{
-    menu.classList.toggle('show')
-    })
+// btn.addEventListener('click',()=>{
+//     menu.classList.toggle('show')
+//     })
 
-          // upload files 
-document.getElementById("uploadFile").onchange = function() {
-document.getElementById("form").submit();
-};
+//           // upload files 
+// document.getElementById("uploadFile").onchange = function() {
+// document.getElementById("form").submit();
+// };
 
                 // For file context menu(right click)
              document.addEventListener('DOMContentLoaded', () => {
@@ -150,6 +150,11 @@ document.getElementById("form").submit();
                 });
             });
         });
+
+              // upload folder 
+              document.getElementById("renameFolder").onchange = function() {
+document.getElementById("renameInnerform").submit();
+};
 
 </script>
 

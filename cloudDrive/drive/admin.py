@@ -3,7 +3,7 @@ from .models import *
 # Register your models here.
 @admin.register(Folder)
 class Adminfolder(admin.ModelAdmin):
-    list_display=('folderName','folderUser')
+    list_display=('id','folderName','folderUser')
 
 @admin.register(InnerFolder)
 class AdminInnerFolder(admin.ModelAdmin):

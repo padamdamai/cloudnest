@@ -70,7 +70,8 @@ def innerFolder(request,folder_id):
     context = {
         'innerFolder':innerFolder,
         'folderId':folder_id,
-        'innerFile':innerFile
+        'innerFile':innerFile,
+        'parentFolderId' : parentfolder
     }
 
     return render(request,'innerFolder.html',context)   
@@ -189,19 +190,16 @@ def innerFolderRename(request,folder_id ,innerFolderRename_id):
     parentfolder = Folder.objects.get(id=folder_id)
     innerFolder = InnerFolder.objects.filter(parentFolder=folder_id).order_by('-id')
     innerFile = InnerFile.objects.filter(fileUser = parentfolder)
+
+    folder_instance = get_object_or_404(InnerFolder, id=innerFolderRename_id)
     if request.method == 'POST':
-        if 'folder_name' in request.POST:
-            folder_name = request.POST.get('folder_name')
-            InnerFolder.objects.create(folderName=folder_name, parentFolder=parentfolder)
-        elif 'uploadFile' in request.FILES:
-            uploaded_file = request.FILES['uploadFile']
-            file_name = uploaded_file.name
-            if len(file_name) > MAX_FILENAME_LENGTH :
-                messages.error(request,"Rename your file name ,length of the file name should be less than 11 character  ")
-            else:
-                InnerFile.objects.create(file=uploaded_file, fileUser=parentfolder)
-        else:
-            print("No recognized POST fields.")
+            folder_name = request.POST.get('renameFolder')
+            
+            if folder_name:
+                    folder_instance.folderName = folder_name
+                    folder_instance.save()
+                    print('updated folder name')
+                    return redirect('folder', folder_id=folder_id)
     context = {
         'innerFolder':innerFolder,
         'folderId':folder_id,
@@ -210,3 +208,12 @@ def innerFolderRename(request,folder_id ,innerFolderRename_id):
     }
 
     return render(request,'innerFolderRename.html',context) 
+
+def deleteFolder(request,delete_InnerFolderID):
+    if request.user.is_authenticated:
+        folder_instance = get_object_or_404(InnerFolder, id=delete_InnerFolderID)
+        folder_instance.delete()
+        print('folder deleted')
+        return redirect('folder',folder_id =delete_InnerFolderID)
+    else:
+        print('else part ')
