@@ -44,7 +44,7 @@
                             {% if file.id == rename_id %}
                             <form action="{% url 'renameFile' file.id %}" method="POST"  id="renameform_file">
                                 {% csrf_token %}
-                                <input type="text" name="renameFile" id="renameFile" value="{{ file.file }}" class="smallForm bg-danger">
+                                <input type="text" name="renameFile" id="renameFile" value="{{ file.file }}" class="smallForm">
                             </form>
                             {% else %}
                             {{ file.file }}

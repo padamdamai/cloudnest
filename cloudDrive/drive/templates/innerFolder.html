@@ -84,7 +84,6 @@
                         <ul>
                             <li><a href="{% url  'innerFolderRename' folderId folder.id %}">Rename Folder</a></li>
                             <li><a href="{% url  'deleteInnerFolder' folderId folder.id %}">Delete</a></li>
-                            <li><a href="{% url 'dowlnoadFolder' folder.id %}">Download</a></li>
                         </ul>
                     </div>
             {% endfor %}
@@ -92,11 +91,18 @@
           {% if innerFile %}
                 {% for file in innerFile %}
                   <hr class="text-light">
-                  <a href="" class="text-decoration-none text-light d-flex justify-content-between ps-4 pe-4 pt-0" style="height: 20px;">
+                  <a href="" class="context_items text-decoration-none text-light d-flex justify-content-between ps-4 pe-4 pt-0" style="height: 20px;">
                       <div class  ="folder_name w-25 ps-3"><i class="bi bi-file-earmark-text fs-4 pe-2"></i>{{file.file}}</div>
                       <div class="folder_name">{{file.created_at}}</div>
                       <div class="folder_name pe-4">8mb</div>
                   </a>
+                <div class="filehideRightClick">
+                            <ul>
+                                <li><a href="{% url 'renameInnerFile' folderId file.id %}">Rename File</a></li>
+                                <li><a href="{% url 'deleteInnerFile' folderId file.id %}">Delete</a></li>
+                                <li><a href="#">Download</a></li>
+                            </ul>
+                </div>
             {% endfor %}
           {% endif %}
 
@@ -146,6 +152,35 @@ document.getElementById("form").submit();
                 });
             });
         });
+
+                // For file context menu(right click)
+                document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.context_items_file').forEach(item => {
+                item.addEventListener('contextmenu', (e) => {
+                    e.preventDefault();
+                    
+                    // Hide any visible context menu
+                    document.querySelectorAll('.filehideRightClick').forEach(menu => {
+                        menu.style.display = 'none';
+                    });
+
+                    // Show the context menu for the clicked folder
+                    const contextMenu = item.nextElementSibling;
+                    contextMenu.style.display = 'block';
+                    contextMenu.style.left = '220px';
+                    contextMenu.style.top = '29px';
+
+                    // Hide the context menu when clicking anywhere else
+                    document.addEventListener('click', function hideContextMenu(e) {
+                        if (!contextMenu.contains(e.target)) {
+                            contextMenu.style.display = 'none';
+                            document.removeEventListener('click', hideContextMenu);
+                        }
+                    });
+                });
+            });
+        });
+
 
                 // Double click for anchor tag
         document.addEventListener('DOMContentLoaded', () => {

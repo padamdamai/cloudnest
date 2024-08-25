@@ -61,3 +61,8 @@
     top: 0rem;
     padding-left: 29px;
 }
+#renameInnerfile{
+    position: absolute;
+    top:0rem;
+    padding-left:2rem;
+}

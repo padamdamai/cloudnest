@@ -127,41 +127,6 @@ def deleteFolder(request, delete_id):
         print('else part ')
 
 
-def download_folder(request, folder_id):
-    if request.user.is_authenticated:
-        # Fetch the folder instance and ensure it belongs to the authenticated user
-        folder_instance = get_object_or_404(Folder, id=folder_id, folderUser=request.user)
-
-        # Path where the folder's contents are located
-        base_path = '/path/to/your/folders'
-        folder_path = os.path.join(base_path, folder_instance.folderName)
-
-        # Create a BytesIO buffer to hold the ZIP file content
-        buffer = io.BytesIO()
-
-        # Create a ZIP file in the buffer
-        with zipfile.ZipFile(buffer, 'w', zipfile.ZIP_DEFLATED) as zip_file:
-            # Walk through the directory and add files to the ZIP file
-            for root, dirs, files in os.walk(folder_path):
-                for file_name in files:
-                    file_path = os.path.join(root, file_name)
-                    # Calculate the relative path for the file within the ZIP
-                    # Relative to the base folder
-                    arcname = os.path.relpath(file_path, base_path)
-                    zip_file.write(file_path, arcname=arcname)
-
-        # Set the buffer's position to the beginning
-        buffer.seek(0)
-
-        # Create an HTTP response with the ZIP file
-        response = HttpResponse(buffer, content_type='application/zip')
-        response['Content-Disposition'] = f'attachment; filename="{folder_instance.folderName}.zip"'
-        
-        return response
-    else:
-        return redirect('login')  # Redirect to login if the user is not authenticated
-
-
 def renameFile(request,renameFile_id):
     if request.user.is_authenticated:
         folders = Folder.objects.filter(folderUser=request.user).order_by('-id')
@@ -185,6 +150,14 @@ def renameFile(request,renameFile_id):
     }
     return render(request,'renameFIle.html',context)
 
+def deleteFile(request,file_Id):
+    if request.user.is_authenticated:
+        file_instance = get_object_or_404(File, id=file_Id)
+        file_instance.delete()
+        print('folder deleted')
+        return redirect('/')
+    else:
+        print('else part ')
 
 def innerFolderRename(request,folder_id ,innerFolderRename_id):
     parentfolder = Folder.objects.get(id=folder_id)
@@ -212,6 +185,37 @@ def innerFolderRename(request,folder_id ,innerFolderRename_id):
 def deleteInnerFolder(request,parentfolder_id,delete_InnerFolderID):
     if request.user.is_authenticated:
         folder_instance = get_object_or_404(InnerFolder, id=delete_InnerFolderID)
+        folder_instance.delete()
+        print('folder deleted')
+        return redirect('folder',folder_id = parentfolder_id)
+    else:
+        print('else part ')
+    
+def renameInnerFile(request,parentFOlderiD,renamefile_Id):
+    parentfolder = Folder.objects.get(id=parentFOlderiD)
+    innerFolder = InnerFolder.objects.filter(parentFolder=parentFOlderiD).order_by('-id')
+    innerFile = InnerFile.objects.filter(fileUser = parentfolder)
+
+    folder_instance = get_object_or_404(InnerFile, id=renamefile_Id)
+    if request.method == 'POST':
+            file_name = request.POST.get('renameFile')
+            if file_name:
+                    folder_instance.file = file_name
+                    folder_instance.save()
+                    print('updated folder name')
+                    return redirect('folder', folder_id=parentFOlderiD)
+    context = {
+        'innerFolder':innerFolder,
+        'folderId':parentFOlderiD,
+        'innerFile':innerFile,
+        'renaming_file_id': renamefile_Id 
+    }
+
+    return render(request,'renameInnerFile.html',context) 
+
+def  deleteInnerFile(request,parentfolder_id,deleteInnerfile_Id):
+    if request.user.is_authenticated:
+        folder_instance = get_object_or_404(InnerFile, id=deleteInnerfile_Id)
         folder_instance.delete()
         print('folder deleted')
         return redirect('folder',folder_id = parentfolder_id)
