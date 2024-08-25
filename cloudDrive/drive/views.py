@@ -76,8 +76,8 @@ def innerFolder(request,folder_id):
 
     return render(request,'innerFolder.html',context)   
 
-def subFile(request,subfolder_id):
-    folder_User = InnerFolder.objects.get(id = subfolder_id,)
+def subFile(request,innerFolderId):
+    folder_User = InnerFolder.objects.get(id = innerFolderId,)
     subFile = SubFile.objects.filter(fileUser=folder_User).order_by('-id')
     if request.method == 'POST':
             uploaded_file = request.FILES['uploadFile']
@@ -89,7 +89,7 @@ def subFile(request,subfolder_id):
 
     context = {
         'subfile':subFile,  
-        'innerfolderId':subfolder_id
+        'innerfolderId':innerFolderId
     }
 
     return render(request,'subfolder.html',context)   
@@ -209,11 +209,11 @@ def innerFolderRename(request,folder_id ,innerFolderRename_id):
 
     return render(request,'innerFolderRename.html',context) 
 
-def deleteFolder(request,delete_InnerFolderID):
+def deleteInnerFolder(request,parentfolder_id,delete_InnerFolderID):
     if request.user.is_authenticated:
         folder_instance = get_object_or_404(InnerFolder, id=delete_InnerFolderID)
         folder_instance.delete()
         print('folder deleted')
-        return redirect('folder',folder_id =delete_InnerFolderID)
+        return redirect('folder',folder_id = parentfolder_id)
     else:
         print('else part ')
