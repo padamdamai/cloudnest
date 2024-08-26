@@ -100,7 +100,7 @@
                             <ul>
                                 <li><a href="{% url 'renameInnerFile' folderId file.id %}">Rename File</a></li>
                                 <li><a href="{% url 'deleteInnerFile' folderId file.id %}">Delete</a></li>
-                                <li><a href="#">Download</a></li>
+                                <li><a href="{% url 'downloadInnerFile' file.id %}">Download</a></li>
                             </ul>
                 </div>
             {% endfor %}

@@ -49,8 +49,8 @@
                             <ul>
                                 <li><a href="{% url 'renameFile' file.id %}">Rename File</a></li>
                                 <li><a href="{% url 'deleteFile' file.id %}">Delete</a></li>
-                                <li><a href="">Download</a></li>
-                            </ul>
+                                <li><a href="{% url 'downloadFile' file.id %}">Download</a></li>
+                            </ul>   
                         </div>
                     </div>
             {% endfor %}

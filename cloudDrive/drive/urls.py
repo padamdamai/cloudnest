@@ -12,7 +12,10 @@ urlpatterns = [
     path('cloudNest/deleteInnerFolder/<int:parentfolder_id>/<int:delete_InnerFolderID>',deleteInnerFolder,name='deleteInnerFolder'),
     path('cloudNest/renameInnerFile/<int:parentFOlderiD>/<int:renamefile_Id>/',renameInnerFile,name='renameInnerFile'),
     path('cloudNest/deleteFile/<int:file_Id>/',deleteFile,name='deleteFile'),
-    path('cloudNest/deleteInnerFile/<int:parentFOlderiD>/<int:deleteInnerfile_Id>/',deleteInnerFile,name='deleteInnerFile')
+    path('cloudNest/deleteInnerFile/<int:parentFolder_id>/<int:deleteInnerfile_Id>/',deleteInnerFile,name='deleteInnerFile'),
+    path('cloudNest/<int:fileDownloadInner_id>/', downloadInnerFile, name='downloadInnerFile'),
+    path('CloudNest/<int:fileDownload_id>/', downloadFile, name='downloadFile')
+
 
 
 

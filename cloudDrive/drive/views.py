@@ -1,10 +1,8 @@
 from django.shortcuts import render,redirect,get_object_or_404,reverse
 from .models import *
 from django.contrib import messages
-from django.http import HttpResponse
+from django.http import HttpResponse,FileResponse,Http404
 import os
-import zipfile
-import io
 
 # Create your views here.
 MAX_FILENAME_LENGTH = 15 
@@ -213,11 +211,42 @@ def renameInnerFile(request,parentFOlderiD,renamefile_Id):
 
     return render(request,'renameInnerFile.html',context) 
 
-def  deleteInnerFile(request,parentfolder_id,deleteInnerfile_Id):
+def  deleteInnerFile(request,parentFolder_id,deleteInnerfile_Id):
     if request.user.is_authenticated:
-        folder_instance = get_object_or_404(InnerFile, id=deleteInnerfile_Id)
+        folder_instance = get_object_or_404(InnerFile, id = deleteInnerfile_Id)
         folder_instance.delete()
         print('folder deleted')
-        return redirect('folder',folder_id = parentfolder_id)
+        return redirect('folder',folder_id = parentFolder_id)
     else:
         print('else part ')
+
+def downloadInnerFile(request,fileDownloadInner_id):
+    file_instance = get_object_or_404(InnerFile, id=fileDownloadInner_id)
+    file_path = file_instance.file.path 
+
+    try:
+        response = FileResponse(open(file_path, 'rb'), as_attachment=True)
+        response['Content-Disposition'] = f'attachment; filename="{file_instance.file.name}"'
+        return response
+    except FileNotFoundError:
+        raise Http404("File does not exist")
+    
+def downloadFile(request,fileDownload_id):
+    try:
+        file_instance = get_object_or_404(File, id=fileDownload_id)
+        file_path = file_instance.file.path 
+        print(f"File Path: {file_path}")
+
+        # Check if the file exists
+        if not os.path.exists(file_path):
+            print("File does not exist")
+            raise Http404("File does not exist")
+
+        # Serving the file
+        response = FileResponse(open(file_path, 'rb'), as_attachment=True)
+        response['Content-Disposition'] = f'attachment; filename="{file_instance.file.name}"'
+        print("File is being downloaded")
+        return response
+    except Exception as e:
+        print(f"Error: {e}")
+        raise Http404("File does not exist")
