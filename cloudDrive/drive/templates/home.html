@@ -1,5 +1,6 @@
 {% extends 'index.html' %}
 {% block content %}
+{% load static %}
 
 {% if user.is_authenticated %}
 
@@ -24,21 +25,21 @@ btn.addEventListener('click',()=>{
     menu.classList.toggle('show')
     })
 
-// window.addEventListener('click',()=>{
-//     menu.classList.remove('show')
-// })
-
-// document.addEventListener('click', e => {
-//     if(!menu.contains(e.target) && e.target !== btn){
-//         menu.classList.add('hide')
-//     }
-// })
 
 
 </script>
 
 {% else %}
-<p>not authenticated for home page</p>
+<div class="container d-flex justify-content-between unautherized_user_home text-white align-items-center">
+    <div class="leftContent_unauth">
+        <p>Data is the foundation of informed decisions</p>
+      <h2><strong> Secure your data in the CloudNest today, for effortless access tomorrow </strong> </h2>
+      <h6><b class="unauth_strong_tag"> Storing data on a CloudNest platform provides secure, scalable, and accessible storage, enabling easy file sharing, backups, and collaboration across devices and teams </b></h6>
+    </div>
+    <div class="rightContent_unauth">
+        <img src="{% static 'images/unautherized.png' %}" alt="">
+    </div>
+</div>
 
 {% endif %} 
 
