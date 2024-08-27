@@ -15,7 +15,7 @@
       class="navbar navbar-expand-lg"
       style="background-color: rgb(70, 67, 67)"
     >
-      <div class="container-fluid">
+      <div class="container-fluid ">
         <a class="navbar-brand fs-3 fw-bolder text-light" href="/">CloudNest</a>
         <button
           class="navbar-toggler"
@@ -50,9 +50,9 @@
             </li>
             {% endif %} 
           </ul>
-          <form class="container-fluid d-flex float-end" role="search">
+          <form class="container-fluid d-flex float-end ms-5" role="search">
             <input
-              class="form-control me-2 w-75"
+              class="form-control me-2 w-100"
               type="search"
               placeholder="Search"
               aria-label="Search"
@@ -60,31 +60,14 @@
           </form>
           
           {% if user.is_authenticated %}
-          <button type="button" class="btn btn-primary">
+          <button type="button" class="btn btn-dark me-3 logoutBtn">
             <a href="/cloudNest/logout/" class="text-light text-decoration-none"
               >Logout</a
             >
           </button>
-          <button
-            type="button"
-            class="rounded-circle"
-            style="height: 56px; width: 56px"
-            data-bs-toggle="modal"
-            data-bs-target="#staticBackdrop"
-          >
- 
-            <img
-              src="{% static 'images/profile.png' %}"
-              class="rounded-circle ms-0"
-              height="40px"
-              width="40px"
-              alt="profile image"
-              data-bs-toggle="offcanvas"
-              data-bs-target="#offcanvasRight"
-              aria-controls="offcanvasRight"
-              type="button"
-            />
-          </button>
+          <div class="w-25 ms-3 text-white">
+            Hello, {{user.username}}
+          </div>
 
           {% endif %}
         </div>
