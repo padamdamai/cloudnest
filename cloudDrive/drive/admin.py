@@ -23,4 +23,4 @@ class AdminInnerFile(admin.ModelAdmin):
 
 @admin.register(SubFile)
 class AdminInnerFile(admin.ModelAdmin):
-    list_display=('file','fileUser')
+    list_display=('id','file','fileUser')

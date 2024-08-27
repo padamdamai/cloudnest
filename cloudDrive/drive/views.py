@@ -250,3 +250,48 @@ def downloadFile(request,fileDownload_id):
     except Exception as e:
         print(f"Error: {e}")
         raise Http404("File does not exist")
+    
+def renameSubFile(request,innerfolderId,renameSubFile_id):
+    folder_User = InnerFolder.objects.get(id = innerfolderId,)
+    subFile = SubFile.objects.filter(fileUser=folder_User).order_by('-id')
+    file_instance = get_object_or_404(SubFile, id=renameSubFile_id)
+        
+    if request.method == 'POST':
+        file_name = request.POST.get('renameSubFile')
+            
+        if file_name:
+            file_instance.file = file_name
+            file_instance.save()
+            return redirect('subFile', innerFolderId = innerfolderId)
+
+    context = { 
+        'subfile':subFile,  
+        'innerfolderId':innerfolderId,
+        'renameSubFile_id':renameSubFile_id
+    }
+
+    return render(request,'subfileRename.html',context)  
+
+def deleteSubFile(request,innerfolderId,deleteSubFile_id):
+    if request.user.is_authenticated:
+        file_instance = get_object_or_404(SubFile,id= deleteSubFile_id)
+        file_instance.delete()
+        return redirect('subFile', innerFolderId = innerfolderId)
+    
+    
+def downloadSubFile(request, downloadSubFile_id):
+    try:
+        file_instance = get_object_or_404(SubFile, id=downloadSubFile_id)
+        file_path = file_instance.file.path 
+        print(f"File Path: {file_path}")
+        if not os.path.exists(file_path):
+            print("File does not exist")
+            raise Http404("File does not exist")
+
+        response = FileResponse(open(file_path, 'rb'), as_attachment=True)
+        response['Content-Disposition'] = f'attachment; filename="{file_instance.file.name}"'
+        print("File is being downloaded")
+        return response
+    except Exception as e:
+        print(f"Error: {e}")
+        raise Http404("File does not exist")

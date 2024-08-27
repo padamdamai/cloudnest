@@ -66,3 +66,10 @@
     top:0rem;
     padding-left:2rem;
 }
+#renameSubFiles{
+    position: absolute;
+    top:0rem;
+    padding-left:9rem;
+    margin-left:2rem;
+    width:auto;
+}

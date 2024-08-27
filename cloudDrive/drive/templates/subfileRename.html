@@ -23,6 +23,7 @@
                         <button type="submit" id="submitBtn"></button>
                       </form>
                 </li>
+                <li class="pt-4 pe-3"><a href="#" class="text-decoration-none text-light">Upload Folder</a></li>
             </ul>
         </div>
            <ul class="mt-4">
@@ -51,19 +52,20 @@
 
             {% for file in subfile %}
                     <hr class="text-light">
-                    <a href="" class="context_items text-decoration-none text-light d-flex justify-content-between ps-4 pe-4 pt-0" style="height: 20px;">
-                        <div class="folder_name ps-1" style="width: 20rem;"><i  class="bi bi-file-earmark-text fs-4 pe-2"></i>{{file.file}}</div>
+                    <div href="" class="context_items text-decoration-none text-light d-flex justify-content-between ps-1 pe-4 pt-0" style="height: 20px;">
+                        <div class="folder_name ps-1 position-relative" style="width: 20rem;"><i  class="bi bi-file-earmark-text fs-4 pe-2"></i>
+                        {% if file.id  == renameSubFile_id %}
+                        <form action="{% url 'renameSubFile' innerfolderId file.id %}" method="POST"  id="renameSubfile">
+                            {% csrf_token %}
+                            <input type="text" name="renameSubFile" id="renameSubFiles" value="{{ file.file }}" class="renameSubfile">
+
+                        </form> 
+                    {% else %}
+                    {{ file.file }}
+                {% endif %}
+                        </div>
                         <div class="folder_name">{{file.created_at}}</div>
                         <div class="folder_name pe-4">8mb</div>
-                    </a>
-
-                    <div class="folderhideRightClick">
-                        <ul>
-                            <li><a href="{% url 'renameSubFile' innerfolderId file.id %}">Rename File</a></li>
-                            <li><a href="{% url 'deleteSubFile' innerfolderId file.id %}">Delete</a></li>
-                            <li><a href="{% url 'downloadSubFile' file.id %}">Download</a></li>
-
-                        </ul>
                     </div>
             {% endfor %}
         <hr class="text-light">             
@@ -87,38 +89,10 @@ btn.addEventListener('click',()=>{
 // })
 
           // upload files 
-document.getElementById("uploadFile").onchange = function() {
-document.getElementById("form").submit();
+document.getElementById("renameSubFiles").onchange = function() {
+document.getElementById("renameSubfile").submit();
 };
 
-
-                // For file context menu(right click)
-             document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('.context_items').forEach(item => {
-                item.addEventListener('contextmenu', (e) => {
-                    e.preventDefault();
-                    
-                    // Hide any visible context menu
-                    document.querySelectorAll('.folderhideRightClick').forEach(menu => {
-                        menu.style.display = 'none';
-                    });
-
-                    // Show the context menu for the clicked folder
-                    const contextMenu = item.nextElementSibling;
-                    contextMenu.style.display = 'block';
-                    contextMenu.style.left = '220px';
-                    contextMenu.style.top = '29px';
-
-                    // Hide the context menu when clicking anywhere else
-                    document.addEventListener('click', function hideContextMenu(e) {
-                        if (!contextMenu.contains(e.target)) {
-                            contextMenu.style.display = 'none';
-                            document.removeEventListener('click', hideContextMenu);
-                        }
-                    });
-                });
-            });
-        });
 
 </script>
 
