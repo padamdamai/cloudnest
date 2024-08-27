@@ -48,13 +48,7 @@
                 >Signup</a
               >
             </li>
-            {% endif %} {% if user.is_authenticated %}
-            <li class="nav-item">
-              <a class="nav-link text-light" href="#" aria-disabled="true"
-                >feedback</a
-              >
-            </li>
-            {% endif %}
+            {% endif %} 
           </ul>
           <form class="container-fluid d-flex float-end" role="search">
             <input
@@ -64,7 +58,13 @@
               aria-label="Search"
             />
           </form>
+          
           {% if user.is_authenticated %}
+          <button type="button" class="btn btn-primary">
+            <a href="/cloudNest/logout/" class="text-light text-decoration-none"
+              >Logout</a
+            >
+          </button>
           <button
             type="button"
             class="rounded-circle"
@@ -72,6 +72,7 @@
             data-bs-toggle="modal"
             data-bs-target="#staticBackdrop"
           >
+ 
             <img
               src="{% static 'images/profile.png' %}"
               class="rounded-circle ms-0"
@@ -84,51 +85,6 @@
               type="button"
             />
           </button>
-
-          <!-- modal -->
-          <div
-            class="modal fade float-end"
-            id="staticBackdrop"
-            data-bs-backdrop="static"
-            data-bs-keyboard="false"
-            tabindex="-1"
-            aria-labelledby="staticBackdropLabel"
-          
-          >
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="staticBackdropLabel">
-                    {{user.username}}
-                  </h1>
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
-                </div>
-                <div class="modal-body">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Est
-                  consectetur minima sunt?
-                </div>
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                  >
-                    Close
-                  </button>
-                  <button type="button" class="btn btn-primary">
-                    <a href="/cloudNest/logout/" class="text-light text-decoration-none"
-                      >Logout</a
-                    >
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
 
           {% endif %}
         </div>

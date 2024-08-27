@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,23 +24,11 @@
                         <button type="submit"  name="createfile" id="submitBtn"></button>
                       </form>
                     </li>
-                    <li class="pt-4 pe-3">
-                          <form id="uploadForm" method="POST">
-                               {% csrf_token %}
-                              <label for="folderInput" class="text-light uploadFolder">Upload Folder</label>
-                              <input type="file" id="folderInput" webkitdirectory directory multiple>
-                              <button type="submit" id='submitBtn' name="testupload"></button>
-                          </form>
-                    </li>
                 </ul>
             </div>
-               <ul class="mt-4">
-                <li class="p-2"><a href="#" class="text-decoration-none text-light"><i class="bi bi-floppy pe-4"></i> My Drive</li></a>
-                <li class="p-2"><a href="#" class="text-decoration-none text-light"><i class="bi bi-share pe-4"></i>Shared with me</li></a>
-                <li class="p-2"><a href="#" class="text-decoration-none text-light"><i class="bi bi-clock pe-4"></i> Recent</li></a>
-                <li class="p-2"><a href="#" class="text-decoration-none text-light"><i class="bi bi-trash3 pe-4"></i> Trash</li></a>
-                <li class="p-2"><a href="#" class="text-decoration-none text-light"><i class="bi bi-cloud pe-4"></i>Storage</li></a>
-               </ul>
+            <div>
+            <img src="{% static 'images/nest.png' %}" class="w-100 position-relative top-23px " alt="">
+            </div>
         </div>
        
 
