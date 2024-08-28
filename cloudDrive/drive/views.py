@@ -10,6 +10,7 @@ def home(request):
     if request.user.is_authenticated:
         folders = Folder.objects.filter(folderUser=request.user).order_by('-id')
         files = File.objects.filter(fileUser=request.user).order_by('-id')
+        file_size = None  # Initialize file_size to None
         # for uploading folder
         if request.method == 'POST':
             if 'createfolder' in request.POST:
@@ -24,14 +25,12 @@ def home(request):
                         else:
                             messages.error(request," folder hasn't been created please try again")
                             return redirect('/')
-            elif 'uploadFolder' in request.POST:
-                uploadFolder = request.FILES.get('uploadFOLDER')
-                Folder.objects.create(folderName = uploadFolder,folderUser = request.user)
-                
+         
     # for uploading files
             else:
                 uploaded = request.FILES.get('uploadFile')
                 file_name = uploaded.name
+                file_size = uploaded.size
                 if len(file_name) > MAX_FILENAME_LENGTH:
                     messages.error(request,"Rename your file name ,length of the file name should be less than 11 character  ")
                 else:
@@ -39,7 +38,8 @@ def home(request):
 
         context = {
         'folders' : folders,
-        'files':files
+        'files':files,
+        'file_size':file_size
                 }
         return render(request,"home.html",context)
     else:

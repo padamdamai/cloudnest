@@ -13,9 +13,9 @@
             <div class="text-decoration-none d-flex btn_click">
                 <button class="btn fs-5 p-2 text-light rounded"  role='button' id="btn">New <span class="fs-4 p-2">+</span></button>
             </div>
-            <div class="showitems position-absolute" id="menu">
-                <ul class="bg-dark d-flex flex-column" style="border: 1px solid white;" id="myElement">
-                    <li class="pt-4 pe-3 text-light" role="button" data-bs-toggle="modal" data-bs-target="#newFolderModal" >Folder</li>
+            <div class="showitems position-absolute " id="menu">
+                <ul class="bg-dark d-flex flex-column rounded-3 list-unstyled px-3" id="myElement">
+                    <li class="pt-4 w-100 pe-3 text-light" role="button" data-bs-toggle="modal" data-bs-target="#newFolderModal" >Folder</li>
                     <li class="pt-4 pe-3">
                       <form action="" method="POST" id="form" enctype="multipart/form-data">
                         {% csrf_token %}
@@ -27,7 +27,7 @@
                 </ul>
             </div>
             <div>
-            <img src="{% static 'images/nest.png' %}" class="w-100 position-relative top-23px " alt="">
+            <img src="{% static 'images/nest.png' %}" class="w-100 " alt="">
             </div>
         </div>
        

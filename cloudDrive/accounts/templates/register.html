@@ -2,25 +2,14 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
- 
- {% comment %} {% for msg in messages %}
-    {% if msg.level ==  DEFAULT_MESSAGE_LEVELS.SUCCESS %}
-    <div class="alert alert-success w-50 m-auto">{{msg}}</div>
-    {% endif %}
-
-    {% if msg.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
-    <div class="alert alert-danger w-50 m-auto">{{msg}}</div>
-    {% endif %}
-{% endfor %} {% endcomment %}
-
 
 <div class="container_registered">
 
 <!-- Bootstrap Modal Structure -->
-<div class="modal fade text-danger" id="messageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-fullscreen-sm-down">
         <div class="modal-content">
-            <div class="modal-body">
+            <div class="modal-body bg-dark text-warning rounded">
                 {% for msg in messages %}
                     <div class="alert alert-{{ msg.tags }}">
                         {{ msg }}
@@ -34,10 +23,15 @@
 
     <form action="" method="post" enctype="multipart/form-data" class="text-white w-50 m-auto">
         {% csrf_token %}
-        {{ Registration_form | crispy }}
-              <p>already have an accounts <a href="/cloudNest/login">signin</a></p>      
+
+        {{ Registration_form.username|as_crispy_field }}
+        {{ Registration_form.email|as_crispy_field }}
+        {{ Registration_form.password1|as_crispy_field }}
+        {{ Registration_form.password2|as_crispy_field }}
+
+            <input type="submit" value="register" class="bg_success_registered">
+              <p class="mt-3">already have an accounts <a href="/cloudNest/login" class="text-decoration-none">signin</a></p>      
         <div> 
-            <input type="submit" value="register">
         </div>
     </form>
 </div>

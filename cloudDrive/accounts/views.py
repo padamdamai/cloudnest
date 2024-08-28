@@ -17,10 +17,6 @@ def registerUser(request):
             for field, errors in register_user.errors.items():
                 for error in errors:
                     messages.error(request, f"{field.capitalize()}: {error}")
-            
-    # context = {
-    #      'Registration_form': CustomUserCreationForm   
-    # }
 
     return render(request,'register.html',{'Registration_form':CustomUserCreationForm})
 

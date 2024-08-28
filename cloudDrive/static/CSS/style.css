@@ -151,3 +151,12 @@ body{
     color: white !important;
     text-align: center !important;
 }
+.bg_success_registered{
+    background-color: aquamarine !important;
+    width: 100% !important;
+    border-radius: 12px;
+    padding: 11px;
+}
+#myElement li:hover,.uploadFile:hover{
+    color: grey !important;
+}

@@ -14,8 +14,6 @@
 
   <div class="container_loggedin">
       <form action="" method="POST" class="text-white w-50 m-auto  ">
-        <!-- {% csrf_token %} -->
-        <!-- {{ Login_user | crispy}} -->
         {% csrf_token %}
         {{ Login_user.username|as_crispy_field }}
         {{ Login_user.email|as_crispy_field }}

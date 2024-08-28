@@ -5,15 +5,40 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field, Submit
 
 class CustomUserCreationForm(UserCreationForm):
-    username = forms.CharField(label='username', min_length=5, max_length=150)  
-    email = forms.EmailField(label='email')  
-    password1 = forms.CharField(label='password', widget=forms.PasswordInput)  
-    password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput)  
+    username = forms.CharField(label='username', min_length=5, max_length=150,
+                                       widget=forms.TextInput(attrs={
+            'class': 'form-control my-custom-class',  # Custom CSS class
+            'placeholder': 'Enter your username',    # Placeholder text
+        }))  
+    
+    email = forms.EmailField(label='email', widget=forms.TextInput(attrs={
+            'class': 'form-control my-custom-class',  # Custom CSS class
+            'placeholder': 'Enter your email',    # Placeholder text
+        })) 
+     
+    password1 = forms.CharField(label='password', widget=forms.PasswordInput(attrs={
+            'class': 'form-control my-custom-class',  # Custom CSS class
+            'placeholder': 'Enter your password',    # Placeholder text
+        }))   
+    
+    password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput(attrs={
+            'class': 'form-control my-custom-class',  # Custom CSS class
+            'placeholder': 'retype your password',    # Placeholder text
+        }))   
+    
+    def __init__(self, *args, **kwargs):
+        super(CustomUserCreationForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.form_method = 'POST'
+        self.helper.layout = Layout(
+            Field('username', css_class='form-control my-custom-class'),
+            Field('email', css_class='form-control my-custom-class'),
+            Field('password1', css_class='form-control my-custom-class'),
+            Field('password2', css_class='form-control my-custom-class')
 
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-    #     self.fields['password1'].help_text = None
-    #     self.fields['password2'].help_text = None
+        )
+        self.helper.add_input(Submit('submit', 'Register', css_class='p-2 w-100 rounded'))
+
 
     def username_clean(self):  
         username = self.cleaned_data['username'].lower()  
