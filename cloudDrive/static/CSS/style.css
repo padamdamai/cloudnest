@@ -85,14 +85,14 @@
     margin-left: 3rem;
   }
 .unauth_strong_tag{
-    color: rgb(235, 227, 227);
+    color:rgb(148, 143, 143);
 }
 .container_loggedin{
     margin-top: 12vh !important;
 }
 .bg_success_loggedIn{
     background-color:rgba(-126,56,44);
-    color: white;
+    color: rgb(241, 237, 237);
 }
 .container_registered{
     margin-top: 12vh;
@@ -129,6 +129,25 @@ body{
 .search_control:focus .search_icon {
     display: none !important;
   }
-  /* input{
-    padding: ;
-  } */
+.text_home_nonAuth{
+    color:grey;
+}
+.strong_non_auth{
+    color: rgb(240, 234, 234);
+}
+.my-custom-class {
+    border: 2px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    color: white !important;
+}
+.bg_success_loggedIn {
+    background-color: #28a745;
+}
+.form-control{
+    background: rgb(73, 72, 72) !important;
+}
+.form-control::placeholder{
+    color: white !important;
+    text-align: center !important;
+}

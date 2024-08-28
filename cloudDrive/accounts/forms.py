@@ -1,6 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Field, Submit
 
 class CustomUserCreationForm(UserCreationForm):
     username = forms.CharField(label='username', min_length=5, max_length=150)  
@@ -45,6 +47,32 @@ class CustomUserCreationForm(UserCreationForm):
 
 
 class Login_user(forms.Form):
-    username = forms.CharField()
-    email=forms.EmailField()
-    password= forms.CharField(widget=forms.PasswordInput)
+    username = forms.CharField(
+        widget=forms.TextInput(attrs={
+            'class': 'form-control my-custom-class',  # Custom CSS class
+            'placeholder': 'Enter your username',    # Placeholder text
+        })
+    )
+    email = forms.EmailField(
+        widget=forms.EmailInput(attrs={
+            'class': 'form-control my-custom-class',
+            'placeholder': 'Enter your email',
+        })
+    )
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-control my-custom-class',
+            'placeholder': 'Enter your password',
+        })
+    )
+
+    def __init__(self, *args, **kwargs):
+        super(Login_user, self).__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.form_method = 'POST'
+        self.helper.layout = Layout(
+            Field('username', css_class='form-control my-custom-class'),
+            Field('email', css_class='form-control my-custom-class'),
+            Field('password', css_class='form-control my-custom-class'),
+        )
+        self.helper.add_input(Submit('submit', 'Login', css_class='p-2 w-100 bg_success_loggedIn rounded'))
