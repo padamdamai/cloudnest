@@ -28,7 +28,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <ul class="navbar-nav me-auto mb-1 mb-lg-0">
             <li class="nav-item">
               <a class="nav-link active text-light" aria-current="page" href="/"
                 >Home</a
@@ -51,12 +51,16 @@
           </ul>
 
           {% if user.is_authenticated %}
-          <form class="container-fluid d-flex float-end ms-5" role="search">
+          <form class="container d-flex  ms-5" role="search">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search text-light search_icon" viewBox="0 0 16 16">
+  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+</svg>
             <input
-              class="form-control me-2 w-100"
+              class="form-control me-2 w-100 search_control border-0 px-5" 
               type="search"
               placeholder="Search"
               aria-label="Search"
+              
             />
           </form>
           
@@ -74,6 +78,8 @@
         </div>
       </div>
     </nav>
-    <hr class="text-light hr_unauth_home mt-0">
+    {% if not user.is_authenticated %}
+     <hr class="text-light hr_unauth_home mt-0">
+     {% endif %}
   </body>
 </html>

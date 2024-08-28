@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from django.contrib.auth.forms import UserCreationForm
+# from django.contrib.auth.forms import UserCreationForm
 from .forms import * 
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -14,13 +14,15 @@ def registerUser(request):
             messages.add_message(request,messages.SUCCESS,'You are successfully registered')
             return redirect('/cloudNest/login/')
         else:
-            messages.add_message(request,messages.ERROR,'something went wrong please try again!!')
-            return render(request,'register.html')
+            for field, errors in register_user.errors.items():
+                for error in errors:
+                    messages.error(request, f"{field.capitalize()}: {error}")
+            
+    # context = {
+    #      'Registration_form': CustomUserCreationForm   
+    # }
 
-    context ={
-        "Registration_form": CustomUserCreationForm
-    }
-    return render(request,'register.html',context)
+    return render(request,'register.html',{'Registration_form':CustomUserCreationForm})
 
 
 def login_user(request):

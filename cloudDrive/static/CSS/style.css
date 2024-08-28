@@ -18,6 +18,10 @@
 .uploadFile,.uploadFolder{
     cursor: pointer;
 }
+.search_control::placeholder{
+    color: white !important;
+    padding-left: 5% !important;
+}
 .folderhideRightClick,.filehideRightClick{
     display: none;
     position: absolute;
@@ -27,7 +31,11 @@
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     z-index: 1000;
 }
-
+.search_icon{
+    position: absolute;
+    top: 25px;
+    left: 24%;
+}
 .folderhideRightClick ul, .filehideRightClick ul {
     list-style: none;
     padding: 0;
@@ -74,17 +82,53 @@
     width:auto;
 }
 .logoutBtn{
-    margin-left: 20rem;
-  }
-body{
-    background-image: linear-gradient(90deg , rgb(255,26,144) , rgb(255,127,80));
-    color: white;
+    margin-left: 3rem;
   }
 .unauth_strong_tag{
     color: rgb(235, 227, 227);
 }
-.hr_unauth_home{
-    height:3px;
-    display: block;
-    background-color: white;
+.container_loggedin{
+    margin-top: 12vh !important;
 }
+.bg_success_loggedIn{
+    background-color:rgba(-126,56,44);
+    color: white;
+}
+.container_registered{
+    margin-top: 12vh;
+}
+.fixed-top-alert {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 600px;
+    z-index: 1050;
+    display: none;
+}
+.left-side-container{
+    background-color:#242222;
+}
+.right-side-container{
+    background-color: #141313;
+    border-radius: 1rem;
+}
+.navbar{
+    background-color:#242222;
+}
+body{
+    background-color: #242222 !important;
+}
+.search_control{
+    color: white !important;
+    background: #494646 !important;
+    width: 32rem !important;
+    border-radius: 20px !important;
+}
+.search_control:focus .search_icon {
+    display: none !important;
+  }
+  /* input{
+    padding: ;
+  } */
