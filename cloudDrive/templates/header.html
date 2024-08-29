@@ -11,10 +11,8 @@
     />
   </head>
   <body>
-    <nav
-      class="navbar navbar-expand-lg"
-    >
-      <div class="container-fluid ">
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid">
         <a class="navbar-brand fs-3 fw-bolder text-light" href="/">CloudNest</a>
         <button
           class="navbar-toggler"
@@ -47,39 +45,59 @@
                 >Signup</a
               >
             </li>
-            {% endif %} 
+            {% endif %}
           </ul>
 
           {% if user.is_authenticated %}
-          <form class="container d-flex  ms-5" role="search">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search text-light search_icon" viewBox="0 0 16 16">
-  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-</svg>
+          <form action="{% url 'search' %}" method="get" class="container d-flex ms-5" id="search_form" role="search">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-search text-light search_icon"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"
+              />
+            </svg>
+            {% csrf_token %}
             <input
-              class="form-control me-2 w-100 search_control border-0 px-5" 
+              class="form-control me-2 w-100 search_control border-0 px-5"
               type="search"
               placeholder="Search"
               aria-label="Search"
-              
+              name="search_files"
+              id="search_files"
             />
+            <input type="submit" value="" id="sumit_search" class="d-none">
           </form>
-          
 
           <button type="button" class="btn btn-dark me-3 logoutBtn">
             <a href="/cloudNest/logout/" class="text-light text-decoration-none"
               >Logout</a
             >
           </button>
-          <div class="w-25 ms-3 text-white">
-            Hello, {{user.username}}
-          </div>
+          <div class="w-25 ms-3 text-white">Hello, {{user.username}}</div>
 
           {% endif %}
         </div>
       </div>
     </nav>
     {% if not user.is_authenticated %}
-     <hr class="text-light hr_unauth_home mt-0">
-     {% endif %}
+    <hr class="text-light hr_unauth_home mt-0" />
+    {% endif %}
+
+
+    <script>
+      // upload files 
+document.getElementById("search_files").onchange = function() {
+document.getElementById("search_form").submit();
+};
+
+
+
+</script>
   </body>
 </html>

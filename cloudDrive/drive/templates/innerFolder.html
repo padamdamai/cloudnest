@@ -9,58 +9,9 @@
     }
 </style>
 <div class=" d-flex h-100vh">
-    <div class="left-side-container w-25 container bg-dark pt-5 h-100vh">
-        <div class="text-decoration-none d-flex btn_click">
-            <button class="btn fs-5 p-2 text-light rounded"  role='button' id="btn">New <span class="fs-4 p-2">+</span></button>
-        </div>
-        <div class="showitems position-absolute" id="menu">
-            <ul class="bg-dark d-flex flex-column" style="border: 1px solid white;" id="myElement">
-                <li class="pt-4 pe-3 text-light" role="button" data-bs-toggle="modal" data-bs-target="#newFolderModal" >Folder</li>
-                <li class="pt-4 pe-3">
-                      <form action="{% url 'folder' folderId %}" method="POST" id="form" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <label for="uploadFile" class="text-light uploadFile">Upload File</label>
-                        <input type="file" id="uploadFile" name="uploadFile" required>
-                        <button type="submit" id="submitBtn"></button>
-                      </form>
-                    </li>
-            </ul>
-        </div>
-           <ul class="mt-4">
-            <li class="p-2"><a href="#" class="text-decoration-none text-light"><i class="bi bi-floppy pe-4"></i> My Drive</li></a>
-            <li class="p-2"><a href="#" class="text-decoration-none text-light"><i class="bi bi-share pe-4"></i>Shared with me</li></a>
-            <li class="p-2"><a href="#" class="text-decoration-none text-light"><i class="bi bi-clock pe-4"></i> Recent</li></a>
-            <li class="p-2"><a href="#" class="text-decoration-none text-light"><i class="bi bi-trash3 pe-4"></i> Trash</li></a>
-            <li class="p-2"><a href="#" class="text-decoration-none text-light"><i class="bi bi-cloud pe-4"></i>Storage</li></a>
-           </ul>
-    </div>
+{% include 'leftContainer.html' %}
 
-
-  <!-- modal of new folder start -->
-  <div class="modal fade" id="newFolderModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Create new folder</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-         <form action="{% url 'folder' folderId %}" method="post">
-            {% csrf_token %}
-            <label for="folder-name">Folder Name:</label>
-            <input type="text" name="folder_name" class="rounded" id="folder-name" required>
-            <div class="modal-footer">
-              <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type='submit' class="btn btn-primary">Save</button>
-            </div>
-         </form>
-        </div>
-      </div>
-    </div>
-  </div>
-<!-- modal of new folder ended -->
-
-    <div class="container-fluid w-75 float-end bg-dark position-relative me-0 pb-3" style="height:auto;padding-bottom: 23px;">
+       <div class="container w-75 float-end position-relative me-0 pb-3 right-side-container" style="height:auto;padding-bottom: 23px;">
         {% for msg in messages %}
         {% if msg.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
         <div class="alert alert-warning w-50 m-auto">{{msg}}</div>

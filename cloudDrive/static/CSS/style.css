@@ -160,3 +160,11 @@ body{
 #myElement li:hover,.uploadFile:hover{
     color: grey !important;
 }
+.short_colla{
+    font-size:15px ;
+    color: rgb(187, 183, 183) !important;
+    margin-top:10vh;
+    font-family: mono;
+    background-color: rgb(53, 49, 49);
+    padding: 12px;
+}

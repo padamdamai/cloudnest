@@ -25,7 +25,7 @@ class SubFolder(models.Model):
         return self.folderName
 
 class File(models.Model):
-    file = models.FileField(upload_to='files',null=False)
+    file = models.FileField(upload_to='',null=False)
     fileUser = models.ForeignKey(User,on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 

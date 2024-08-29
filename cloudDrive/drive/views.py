@@ -40,7 +40,7 @@ def home(request):
         'folders' : folders,
         'files':files,
         'file_size':file_size
-                }
+              }
         return render(request,"home.html",context)
     else:
         return render(request,'home.html')  
@@ -295,3 +295,31 @@ def downloadSubFile(request, downloadSubFile_id):
     except Exception as e:
         print(f"Error: {e}")
         raise Http404("File does not exist")
+
+def searchFiles(request):
+    if request.method == 'GET':
+        searched_file = request.GET.get('search_files', None)
+        if searched_file:
+            mainFiles = File.objects.filter(file__icontains=searched_file)
+            innerFiles = InnerFile.objects.filter(file__icontains=searched_file)
+            subfile = SubFile.objects.filter(file__icontains=searched_file)
+
+            if not mainFiles.exists() and not innerFiles.exists() and not subfile.exists():
+                context = {
+                    'fileNotFound': f"The file '{searched_file}' is not found",
+                    'files': None,
+                }
+            else:
+                context = {
+                    'files': mainFiles,
+                    'innerFiles':innerFiles,
+                    'subfile':subfile
+                }
+        else:
+            context = {
+                'fileNotFound': "No search file provided."
+            }
+        
+        return render(request, 'searchFiles.html', context)
+    else:
+        return HttpResponse("Only GET requests are allowed.")

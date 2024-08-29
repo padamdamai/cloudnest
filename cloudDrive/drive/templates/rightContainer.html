@@ -22,11 +22,13 @@
             {% for folder in folders %}
                 <div style="position: relative;">
                     <hr class="text-light">
-                    <a href="{% url 'folder' folder.id %}" class="double-click-link context_items text-decoration-none text-light d-flex justify-content-between ps-4 pe-4 pt-0" style="height: 20px;">
+                    <div class="context_items">
+                        <a href="{% url 'folder' folder.id %}" class="double-click-link  text-decoration-none text-light d-flex justify-content-between ps-4 pe-4 pt-0" style="height: 20px;">
                         <div class="folder_name w-25 ps-3"><i class="bi bi-folder-symlink pe-2 fs-5"></i>{{folder.folderName}}</div>
                         <div class="folder_name">{{folder.created_at}}</div>
                         <div class="folder_name pe-4">8mb</div>
-                    </a>
+                        </a>
+                    </div>
                     <div class="folderhideRightClick">
                         <ul>
                             <li><a href="{% url  'renameFolder' folder.id %}">Rename Folder</a></li>
@@ -40,11 +42,13 @@
             {% for file in files %}
                     <div style="position: relative;">
                         <hr class="text-light">
-                        <a href="" id="fileRightClick" class="context_items_file text-decoration-none text-light d-flex justify-content-between ps-4 pe-4 pt-0" style="height: 20px;">
-                            <div class="folder_name ps-3 file_name_width"><i class="bi bi-file-earmark-text fs-4 pe-2"></i>{{file.file}}</div>
-                            <div class="folder_name">{{file.created_at}}</div>
-                            <div class="folder_name pe-4">{{file_size}}</div>
-                        </a>
+                        <div class="context_items_file">
+                            <a href="" id="fileRightClick" class="text-decoration-none text-light d-flex justify-content-between ps-4 pe-4 pt-0" style="height: 20px;">
+                                <div class="folder_name ps-3 file_name_width"><i class="bi bi-file-earmark-text fs-4 pe-2"></i>{{file.file}}</div>
+                                <div class="folder_name">{{file.created_at}}</div>
+                                <div class="folder_name pe-4">{{file_size}}</div>
+                            </a>
+                        </div>
                         <div class="filehideRightClick">
                             <ul>
                                 <li><a href="{% url 'renameFile' file.id %}">Rename File</a></li>
