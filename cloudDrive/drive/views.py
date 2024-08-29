@@ -3,6 +3,7 @@ from .models import *
 from django.contrib import messages
 from django.http import HttpResponse,FileResponse,Http404
 import os
+from django.contrib.contenttypes.models import ContentType
 
 # Create your views here.
 MAX_FILENAME_LENGTH = 15 
@@ -313,7 +314,10 @@ def searchFiles(request):
                 context = {
                     'files': mainFiles,
                     'innerFiles':innerFiles,
-                    'subfile':subfile
+                    'subfile':subfile,
+                    'File':File.__name__,
+                    'InnerFile':InnerFile.__name__,
+                    'SubFile':SubFile.__name__
                 }
         else:
             context = {
@@ -323,3 +327,38 @@ def searchFiles(request):
         return render(request, 'searchFiles.html', context)
     else:
         return HttpResponse("Only GET requests are allowed.")
+
+def get_model_instance(model_name, id):
+    try:
+        content_type = ContentType.objects.get(model=model_name.lower())
+        model_class = content_type.model_class()
+        return get_object_or_404(model_class, id=id)
+    except ContentType.DoesNotExist:
+        return None
+
+def SearchrenameFile(request, model_name, id):
+    print(f"----------------------------this is the model name ----------------{model_name}")
+    model_instance = get_model_instance(model_name, id)
+    if not model_instance:
+        return HttpResponse("Model instance not found", status=404)
+
+    if request.method == 'POST':
+        # Handle renaming logic
+        new_name = request.POST.get('new_name')
+        model_instance.file_name = new_name  # Assuming the model has a `file_name` field
+        model_instance.save()
+        return redirect('searchFiles')  # Redirect to search results or another page
+    context = {
+        'model_instance': model_instance,
+        'SubFile':SubFile.__name__,
+        'InnerFile':InnerFile.__name__,
+        'File':File.__name__
+        }
+    return render(request, 'searchRename.html',context)
+
+def SearchdeleteFile(request,model_name,id_searched):
+    return render(request,'searchRename.html')
+
+def SearchdownloadFile(request,model_name,id_searched):
+    return render(request,'searchRename.html')
+
