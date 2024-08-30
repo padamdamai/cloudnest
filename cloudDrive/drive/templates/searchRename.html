@@ -11,13 +11,31 @@
         {% endif %}
     {% endfor %}
         <div class="container d-flex justify-content-between w-75 ms-5 mt-5 pb-2 sticky-top  text-light">
-            <div class="name w-50">Name</div>
+            <div class="name w-25">Name</div>
             <div class="owner w-25">Created at</div>
             <div class="file_size " style="margin-right: -20%;">File size</div>
         </div>
         <div class="list-group overflow-y-scroll  p-0" style="height:72.3vh;">
-        {% if files %}
-            {% for file in files %}
+        {% if model_instance %}
+                    <div style="position: relative;">
+                        <hr class="text-light">
+                        <div id="fileRightClick" class="context_items_searched_file text-decoration-none text-light d-flex justify-content-between ps-4 pe-4 pt-0" style="height: 20px;">
+                            <div class="folder_name ps-3 file_name_width"><i class="bi bi-file-earmark-text fs-4 pe-2"></i>
+                                <form action="{% url 'SearchrenameFile' model_name id %}" method="post" id="renameSearchedFiles">
+                                    {% csrf_token %}
+                                    <input type="text" value="{{model_instance.file}}" id="renameSearchedFile" name="renameSearchedfile">
+                                    <input type="submit" value="" id="searchformSubmit" class="d-none">
+                                </form>
+                            </div>
+                            <div class="searched_rename_file">{{model_instance.created_at}}</div>
+                            <div class="folder_name pe-4">{{model_instance.created_at}}</div>
+                        </div>
+                    </div>
+        {% endif %}
+
+<!-- 
+       {% if InnerFile %}
+            {% for file in InnerFile %}
                     <div style="position: relative;">
                         <hr class="text-light">
                         <a href="" id="fileRightClick" class="context_items_file text-decoration-none text-light d-flex justify-content-between ps-4 pe-4 pt-0" style="height: 20px;">
@@ -33,31 +51,11 @@
                         </a>
                     </div>
             {% endfor %}        
-        {% endif %}
+        {% endif %} -->
 
-
-       {% if innerFiles %}
-            {% for file in innerFiles %}
-                    <div style="position: relative;">
-                        <hr class="text-light">
-                        <a href="" id="fileRightClick" class="context_items_file text-decoration-none text-light d-flex justify-content-between ps-4 pe-4 pt-0" style="height: 20px;">
-                            <div class="folder_name ps-3 file_name_width"><i class="bi bi-file-earmark-text fs-4 pe-2"></i>
-                                <form action="" method="post">
-                                    {% csrf_token %}
-                                    <input type="text" value="{{model_instance.file}}">
-                                    <p class="text-light bg-light">hello world</p>
-                                </form>
-                            </div>
-                            <div class="folder_name">{{file.created_at}}</div>
-                            <div class="folder_name pe-4">{{file_size}}</div>
-                        </a>
-                    </div>
-            {% endfor %}        
-        {% endif %}
-
-
-       {% if subfile %}
-            {% for file in subfile %}
+<!-- 
+       {% if SubFile %}
+            {% for file in SubFile %}
                     <div style="position: relative;">
                         <hr class="text-light">
                         <a href="" id="fileRightClick" class="context_items_file text-decoration-none text-light d-flex justify-content-between ps-4 pe-4 pt-0" style="height: 20px;">
@@ -67,20 +65,23 @@
                         </a>
                     </div>
             {% endfor %}        
-        {% endif %}
+        {% endif %} -->
 
         {% if fileNotFound %}
         <h2 class="text-danger m-auto text-center">{{ fileNotFound }}</h2>
     {% endif %}
 
-        {% if files or innerFiles or subfile%}
+        {% if model_instance %}
             <hr class="text-light"> 
         {% endif %} 
     </div>
     </div>
 
     <script>
-
+              // upload folder 
+              document.getElementById("renameSearchedFile").onchange = function() {
+document.getElementById("renameSearchedFiles").submit();
+};
     </script>
 
 

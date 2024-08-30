@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect,get_object_or_404,reverse
 from .models import *
+from django.apps import apps
 from django.contrib import messages
 from django.http import HttpResponse,FileResponse,Http404
 import os
@@ -337,24 +338,34 @@ def get_model_instance(model_name, id):
         return None
 
 def SearchrenameFile(request, model_name, id):
-    print(f"----------------------------this is the model name ----------------{model_name}")
     model_instance = get_model_instance(model_name, id)
     if not model_instance:
         return HttpResponse("Model instance not found", status=404)
 
     if request.method == 'POST':
-        # Handle renaming logic
-        new_name = request.POST.get('new_name')
-        model_instance.file_name = new_name  # Assuming the model has a `file_name` field
+        new_file_name = request.POST.get('renameSearchedfile')
+        ModelClass = apps.get_model(app_label='drive', model_name=model_name)
+        model_instance = ModelClass.objects.get(pk=id)
+        old_file_path = model_instance.file.path
+        # if not os.path.exists(old_file_path):
+        #     print(f"Error: The file at {old_file_path} does not exist.")
+        new_file_path = os.path.join(os.path.dirname(old_file_path), new_file_name)
+        os.rename(old_file_path, new_file_path)
+        with open(new_file_path, 'rb') as f:
+            model_instance.file.save(new_file_name, File(f), save=False)
         model_instance.save()
-        return redirect('searchFiles')  # Redirect to search results or another page
+    
+        return redirect('SearchrenameFile')
     context = {
         'model_instance': model_instance,
         'SubFile':SubFile.__name__,
         'InnerFile':InnerFile.__name__,
-        'File':File.__name__
+        'File':File.__name__,
+        'model_name':model_name,
+        'id':id
         }
     return render(request, 'searchRename.html',context)
+    
 
 def SearchdeleteFile(request,model_name,id_searched):
     return render(request,'searchRename.html')

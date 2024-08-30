@@ -21,8 +21,8 @@ urlpatterns = [
     path('CloudNest/search',searchFiles,name='search'),
 
     path('CloudNest/<str:model_name>/rename/<int:id>/' ,SearchrenameFile , name="SearchrenameFile"),
-    path('CloudNest/<str:model_name>/rename/<int:id>/' ,SearchrenameFile , name="SearchdeleteFile"),
-    path('CloudNest/<str:model_name>/rename/<int:id>/' ,SearchrenameFile , name="SearchdownloadFile")
+    path('CloudNest/<str:model_name>/rename/<int:id>/' ,SearchdeleteFile , name="SearchdeleteFile"),
+    path('CloudNest/<str:model_name>/rename/<int:id>/' ,SearchdownloadFile , name="SearchdownloadFile")
 
 
 
