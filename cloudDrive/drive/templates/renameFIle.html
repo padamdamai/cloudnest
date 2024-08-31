@@ -3,7 +3,7 @@
     {% block content %}
     {% include 'leftContainer.html' %}
 
-    <div class="container-fluid w-75 float-end bg-dark position-relative me-0 pb-3" style="height:auto;padding-bottom: 23px;">
+   <div class="container w-75 float-end position-relative me-0 pb-3 right-side-container" style="height:auto;padding-bottom: 23px;">
         {% for msg in messages %}
             {% if msg.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
             <div class="alert alert-danger w-50 m-auto">{{msg}}</div>
@@ -39,7 +39,7 @@
             {% if files %}
                 {% for file in files %}
                     <hr class="text-light">
-                    <a href="" id="fileRightClick" class="context_items_file text-decoration-none text-light d-flex justify-content-between ps-4 pe-4 pt-0" style="height: 20px;">
+                    <div id="fileRightClick" class="context_items_file text-decoration-none text-light d-flex justify-content-between ps-4 pe-4 pt-0" style="height: 20px;">
                         <div class="folder_name file_name_width ps-3 d-flex "><i class="bi bi-file-earmark-text fs-4 pe-2"></i>
                             {% if file.id == rename_id %}
                             <form action="{% url 'renameFile' file.id %}" method="POST"  id="renameform_file">
@@ -52,7 +52,7 @@
                         </div>
                         <div class="folder_name">{{file.created_at}}</div>
                         <div class="folder_name pe-4">8mb</div>
-                    </a>
+                    </div>
                 {% endfor %}
             {% endif %}
             <hr class="text-light">  

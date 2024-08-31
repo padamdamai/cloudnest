@@ -11,7 +11,7 @@ class AdminInnerFolder(admin.ModelAdmin):
 
 @admin.register(File)
 class AdminInnerFile(admin.ModelAdmin):
-    list_display=('file','fileUser')
+    list_display=('id','file','fileUser')
 
 @admin.register(SubFolder)
 class AdminSubFolder(admin.ModelAdmin):
@@ -19,7 +19,7 @@ class AdminSubFolder(admin.ModelAdmin):
 
 @admin.register(InnerFile)
 class AdminInnerFile(admin.ModelAdmin):
-    list_display=('file','fileUser')
+    list_display=('id','file','fileUser')
 
 @admin.register(SubFile)
 class AdminInnerFile(admin.ModelAdmin):

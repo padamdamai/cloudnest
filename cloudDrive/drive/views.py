@@ -220,22 +220,27 @@ def  deleteInnerFile(request,parentFolder_id,deleteInnerfile_Id):
         print('else part ')
 
 def downloadInnerFile(request,fileDownloadInner_id):
-    file_instance = get_object_or_404(InnerFile, id=fileDownloadInner_id)
-    file_path = file_instance.file.path 
-
+    print(f"---------------------------------------innerfile id is  {fileDownloadInner_id}---------")
     try:
+        file_instance = get_object_or_404(InnerFile, id=fileDownloadInner_id)
+        file_path = file_instance.file.path 
+        print(f"File Path: {file_path}")
+        if not os.path.exists(file_path):
+            print("File does not exist")
+            raise Http404("File does not exist")
+
         response = FileResponse(open(file_path, 'rb'), as_attachment=True)
         response['Content-Disposition'] = f'attachment; filename="{file_instance.file.name}"'
+        print("File is being downloaded")
         return response
-    except FileNotFoundError:
+    except Exception as e:
+        print(f"Error: {e}")
         raise Http404("File does not exist")
     
 def downloadFile(request,fileDownload_id):
     try:
         file_instance = get_object_or_404(File, id=fileDownload_id)
         file_path = file_instance.file.path 
-        print(f"File Path: {file_path}")
-
         # Check if the file exists
         if not os.path.exists(file_path):
             print("File does not exist")
