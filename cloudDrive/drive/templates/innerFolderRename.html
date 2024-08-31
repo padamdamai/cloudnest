@@ -50,7 +50,7 @@
                   <a href="" class="text-decoration-none text-light d-flex justify-content-between ps-4 pe-4 pt-0" style="height: 20px;">
                       <div class  ="folder_name w-25 ps-3"><i class="bi bi-file-earmark-text fs-4 pe-2"></i>{{file.file}}</div>
                       <div class="folder_name">{{file.created_at}}</div>
-                      <div class="folder_name pe-4">8mb</div>
+                      <div class="folder_name pe-4">{{request.user}}</div>
                   </a>
             {% endfor %}
           {% endif %}

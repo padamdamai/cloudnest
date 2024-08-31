@@ -33,7 +33,7 @@ class File(models.Model):
         return self.file.name
 
 class InnerFile(models.Model):
-    file = models.FileField(upload_to='files',null=False)
+    file = models.FileField(upload_to='',null=False)
     fileUser = models.ForeignKey(Folder,on_delete=models.CASCADE )
     created_at = models.DateTimeField(auto_now_add=True )
 
@@ -41,7 +41,7 @@ class InnerFile(models.Model):
         return self.file.name
     
 class SubFile(models.Model):
-    file = models.FileField(upload_to='files',null=False)
+    file = models.FileField(upload_to='',null=False)
     fileUser = models.ForeignKey(InnerFolder,on_delete=models.CASCADE )
     created_at = models.DateTimeField(auto_now_add=True )
 

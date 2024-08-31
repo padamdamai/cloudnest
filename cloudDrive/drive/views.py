@@ -98,10 +98,7 @@ def renameFolder(request,rename_id):
     if request.user.is_authenticated:
         folders = Folder.objects.filter(folderUser=request.user).order_by('-id')
         files = File.objects.filter(fileUser=request.user).order_by('-id')
-        
-        # Get the folder instance to be renamed
         folder_instance = get_object_or_404(Folder, id=rename_id, folderUser=request.user)
-        
         if request.method == 'POST':
                 folder_name = request.POST.get('renameFolder')
                 
@@ -113,7 +110,7 @@ def renameFolder(request,rename_id):
     context = {
         'folders':folders,
         'files':files,
-        'rename_id': rename_id
+        'rename_id': rename_id,
     }
     return render(request,'rename.html',context)
 
@@ -342,20 +339,6 @@ def SearchrenameFile(request, model_name, id):
     if not model_instance:
         return HttpResponse("Model instance not found", status=404)
 
-    if request.method == 'POST':
-        new_file_name = request.POST.get('renameSearchedfile')
-        ModelClass = apps.get_model(app_label='drive', model_name=model_name)
-        model_instance = ModelClass.objects.get(pk=id)
-        old_file_path = model_instance.file.path
-        # if not os.path.exists(old_file_path):
-        #     print(f"Error: The file at {old_file_path} does not exist.")
-        new_file_path = os.path.join(os.path.dirname(old_file_path), new_file_name)
-        os.rename(old_file_path, new_file_path)
-        with open(new_file_path, 'rb') as f:
-            model_instance.file.save(new_file_name, File(f), save=False)
-        model_instance.save()
-    
-        return redirect('SearchrenameFile')
     context = {
         'model_instance': model_instance,
         'SubFile':SubFile.__name__,

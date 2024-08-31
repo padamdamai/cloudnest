@@ -43,7 +43,7 @@
         <div class="container d-flex justify-content-between w-75 ms-5 mt-5 pb-2 sticky-top  text-light">
             <div class="name w-50">Name</div>
             <div class="owner w-25">Created at</div>
-            <div class="file_size " style="margin-right: -20%;">File/folder size</div>
+            <div class="file_size " style="margin-right: -20%;">Owner</div>
         </div>
         <div class="list-group overflow-y-scroll  p-0" style="height:72.3vh;">
 
@@ -62,7 +62,7 @@
                 {% endif %}
                         </div>
                         <div class="folder_name">{{file.created_at}}</div>
-                        <div class="folder_name pe-4">8mb</div>
+                        <div class="folder_name pe-4">{{request.user}}</div>
                     </div>
             {% endfor %}
         <hr class="text-light">             

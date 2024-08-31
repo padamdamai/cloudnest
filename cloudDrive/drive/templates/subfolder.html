@@ -43,7 +43,7 @@
         <div class="container d-flex justify-content-between w-75 ms-5 mt-5 pb-2 sticky-top  text-light">
             <div class="name w-50">Name</div>
             <div class="owner w-25">Created at</div>
-            <div class="file_size " style="margin-right: -20%;">File/folder size</div>
+            <div class="file_size " style="margin-right: -20%;">Owner</div>
         </div>
         <div class="list-group overflow-y-scroll  p-0" style="height:72.3vh;">
 
@@ -52,7 +52,7 @@
                     <a href="" class="context_items text-decoration-none text-light d-flex justify-content-between ps-4 pe-4 pt-0" style="height: 20px;">
                         <div class="folder_name ps-1" style="width: 20rem;"><i  class="bi bi-file-earmark-text fs-4 pe-2"></i>{{file.file}}</div>
                         <div class="folder_name">{{file.created_at}}</div>
-                        <div class="folder_name pe-4">8mb</div>
+                        <div class="folder_name pe-4">{{request.user}}</div>
                     </a>
 
                     <div class="folderhideRightClick">
