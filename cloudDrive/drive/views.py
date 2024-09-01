@@ -17,9 +17,8 @@ def home(request):
         if request.method == 'POST':
             if 'createfolder' in request.POST:
                     foldername = request.POST.get('folder_name')
-                    if Folder.objects.filter(folderName = foldername).exists():
-                        messages.error(request," folder name already exists")
-                        return redirect('/')
+                    if len(foldername) > MAX_FILENAME_LENGTH:
+                        messages.error(request,"Rename your folder name ,length of the folder  should be less than 11 character  ")
                     else:
                         folder = Folder.objects.create(folderName = foldername,folderUser = request.user)
                         if folder:
@@ -54,7 +53,10 @@ def innerFolder(request,folder_id):
     if request.method == 'POST':
         if 'folder_name' in request.POST:
             folder_name = request.POST.get('folder_name')
-            InnerFolder.objects.create(folderName=folder_name, parentFolder=parentfolder)
+            if len(folder_name) > MAX_FILENAME_LENGTH:
+                        messages.error(request,"Rename your folder name ,length of the folder  should be less than 11 character  ")
+            else:
+                InnerFolder.objects.create(folderName=folder_name, parentFolder=parentfolder)
         elif 'uploadFile' in request.FILES:
             uploaded_file = request.FILES['uploadFile']
             file_name = uploaded_file.name
@@ -102,11 +104,14 @@ def renameFolder(request,rename_id):
         if request.method == 'POST':
                 folder_name = request.POST.get('renameFolder')
                 
-                if folder_name:
+                if folder_name and len(folder_name) < MAX_FILENAME_LENGTH:
                     folder_instance.folderName = folder_name
                     folder_instance.save()
                     print('updated folder name')
                     return redirect('/')
+                else:
+                    messages.error(request,"Rename your folder name ,length of the folder should be less than 11 character  ")
+
     context = {
         'folders':folders,
         'files':files,
@@ -135,11 +140,13 @@ def renameFile(request,renameFile_id):
         if request.method == 'POST':
             file_name = request.POST.get('renameFile')
             
-            if file_name:
+            if file_name and len(file_name) < MAX_FILENAME_LENGTH:
                 file_instance.file = file_name
                 file_instance.save()
                 print('updated folder name')
                 return redirect('/')
+            else:
+                messages.error(request,"Rename your folder name ,length of the folder should be less than 11 character  ")
     context = {
         'folders':folders,
         'files':files,
@@ -165,11 +172,13 @@ def innerFolderRename(request,folder_id ,innerFolderRename_id):
     if request.method == 'POST':
             folder_name = request.POST.get('renameFolder')
             
-            if folder_name:
+            if folder_name and len(folder_name) < MAX_FILENAME_LENGTH:
                     folder_instance.folderName = folder_name
                     folder_instance.save()
                     print('updated folder name')
                     return redirect('folder', folder_id=folder_id)
+            else:
+                messages.error(request,"Rename your folder name ,length of the folder should be less than 11 character  ")
     context = {
         'innerFolder':innerFolder,
         'folderId':folder_id,
@@ -196,11 +205,13 @@ def renameInnerFile(request,parentFOlderiD,renamefile_Id):
     folder_instance = get_object_or_404(InnerFile, id=renamefile_Id)
     if request.method == 'POST':
             file_name = request.POST.get('renameFile')
-            if file_name:
+            if file_name and len(file_name) < MAX_FILENAME_LENGTH:
                     folder_instance.file = file_name
                     folder_instance.save()
                     print('updated folder name')
                     return redirect('folder', folder_id=parentFOlderiD)
+            else:
+                messages.error(request,"Rename your file name ,length of the file should be less than 11 character  ")
     context = {
         'innerFolder':innerFolder,
         'folderId':parentFOlderiD,
@@ -263,10 +274,12 @@ def renameSubFile(request,innerfolderId,renameSubFile_id):
     if request.method == 'POST':
         file_name = request.POST.get('renameSubFile')
             
-        if file_name:
+        if file_name and len(file_name) < MAX_FILENAME_LENGTH:
             file_instance.file = file_name
             file_instance.save()
             return redirect('subFile', innerFolderId = innerfolderId)
+        else:
+            messages.error(request,"Rename your file name ,length of the file should be less than 11 character  ")
 
     context = { 
         'subfile':subFile,  
