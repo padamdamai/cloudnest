@@ -40,18 +40,22 @@
                 {% for file in files %}
                     <hr class="text-light">
                     <div id="fileRightClick" class="context_items_file text-decoration-none text-light d-flex justify-content-between ps-4 pe-4 pt-0" style="height: 20px;">
-                        <div class="folder_name file_name_width ps-3 d-flex "><i class="bi bi-file-earmark-text fs-4 pe-2"></i>
+                        <div class="folder_name file_name_width w-25 ps-3 d-flex ">
+                        <i class="bi bi-file-earmark-text fs-4 pe-2"></i>
                             {% if file.id == rename_id %}
                             <form action="{% url 'renameFile' file.id %}" method="POST"  id="renameform_file">
                                 {% csrf_token %}
                                 <input type="text" name="renameFile" id="renameFile" value="{{ file.file }}" class="smallForm">
                             </form>
+    
+                                <i onclick="window.history.back()" class="bi bi-x fs-4 cursor-pointer"></i>
+                                
                             {% else %}
                             {{ file.file }}
                         {% endif %}
                         </div>
                         <div class="folder_name">{{file.created_at}}</div>
-                        <div class="folder_name pe-4">8mb</div>
+                        <div class="folder_name pe-4">{{request.user}}</div>
                     </div>
                 {% endfor %}
             {% endif %}

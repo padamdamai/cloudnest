@@ -54,6 +54,9 @@
 .folderhideRightClick ul li:hover, .filehideRightClick ul li:hover {
     background-color: #f0f0f0;
 }
+.cursor-pointer{
+    cursor: pointer;
+}
 #renameform{
     position: absolute;
     padding: 9px;
@@ -74,12 +77,14 @@
     top:0rem;
     padding-left:2rem;
 }
-#renameSubFiles{
-    position: absolute;
-    top:0rem;
-    padding-left:9rem;
-    margin-left:2rem;
-    width:auto;
+.first{
+    order: 1;
+}
+.second{
+    order: 2;
+}
+.third{
+    order: 3;
 }
 .logoutBtn{
     margin-left: 3rem;

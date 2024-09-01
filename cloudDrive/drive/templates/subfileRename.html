@@ -49,14 +49,16 @@
 
             {% for file in subfile %}
                     <hr class="text-light">
-                    <div href="" class="context_items text-decoration-none text-light d-flex justify-content-between ps-1 pe-4 pt-0" style="height: 20px;">
-                        <div class="folder_name ps-1 position-relative" style="width: 20rem;"><i  class="bi bi-file-earmark-text fs-4 pe-2"></i>
+                    <div class="context_items text-decoration-none text-light d-flex justify-content-between ps-1 pe-4 pt-0 position-relative " style="height: 20px;">
+                        <div class="folder_name ps-3 w-25 d-flex">
+                            <i  class="bi bi-file-earmark-text fs-4 pe-2"></i>
                         {% if file.id  == renameSubFile_id %}
                         <form action="{% url 'renameSubFile' innerfolderId file.id %}" method="POST"  id="renameSubfile">
                             {% csrf_token %}
                             <input type="text" name="renameSubFile" id="renameSubFiles" value="{{ file.file }}" class="renameSubfile">
-
                         </form> 
+                        <i onclick="window.history.back()" class="bi bi-x fs-4 cursor-pointer order-3"></i>
+                          
                     {% else %}
                     {{ file.file }}
                 {% endif %}
