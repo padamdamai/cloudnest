@@ -32,7 +32,7 @@ def login_user(request):
                     messages.add_message(request,messages.SUCCESS,'successfully login')
                     return redirect('/')
                 else:
-                    messages.add_message(request,messages.ERROR,'Something went wrong')
+                    messages.add_message(request,messages.ERROR,"Your credentials do not match our records.")
                     return redirect('/cloudNest/login/')
 
 
