@@ -78,12 +78,6 @@ class Login_user(forms.Form):
             'placeholder': 'Enter your username',    # Placeholder text
         })
     )
-    email = forms.EmailField(
-        widget=forms.EmailInput(attrs={
-            'class': 'form-control my-custom-class',
-            'placeholder': 'Enter your email',
-        })
-    )
     password = forms.CharField(
         widget=forms.PasswordInput(attrs={
             'class': 'form-control my-custom-class',
@@ -97,7 +91,6 @@ class Login_user(forms.Form):
         self.helper.form_method = 'POST'
         self.helper.layout = Layout(
             Field('username', css_class='form-control my-custom-class'),
-            Field('email', css_class='form-control my-custom-class'),
             Field('password', css_class='form-control my-custom-class'),
         )
         self.helper.add_input(Submit('submit', 'Login', css_class='p-2 w-100 bg_success_loggedIn rounded'))

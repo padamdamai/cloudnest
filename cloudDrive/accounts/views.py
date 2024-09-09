@@ -1,5 +1,4 @@
 from django.shortcuts import render,redirect
-# from django.contrib.auth.forms import UserCreationForm
 from .forms import * 
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -8,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 def registerUser(request):
     if request.method == 'POST':
-        register_user = CustomUserCreationForm(request.POST,request.FILES)
+        register_user = CustomUserCreationForm(request.POST)
         if register_user.is_valid():
             register_user.save()
             messages.add_message(request,messages.SUCCESS,'You are successfully registered')
@@ -42,6 +41,7 @@ def login_user(request):
             }
             return render(request,'login.html',context)
 
+@login_required
 def logout_user(request):
     logout(request)
     print(" logout function called ")

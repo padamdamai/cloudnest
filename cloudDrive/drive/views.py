@@ -7,7 +7,7 @@ import os
 from django.contrib.contenttypes.models import ContentType
 
 # Create your views here.
-MAX_FILENAME_LENGTH = 15 
+MAX_FILENAME_LENGTH = 27
 def home(request):
     if request.user.is_authenticated:
         folders = Folder.objects.filter(folderUser=request.user).order_by('-id')
@@ -18,7 +18,7 @@ def home(request):
             if 'createfolder' in request.POST:
                     foldername = request.POST.get('folder_name')
                     if len(foldername) > MAX_FILENAME_LENGTH:
-                        messages.error(request,"Rename your folder name ,length of the folder  should be less than 11 character  ")
+                        messages.error(request,"Rename your folder name ,length of the folder  should be less than 27 character  ")
                     else:
                         folder = Folder.objects.create(folderName = foldername,folderUser = request.user)
                         if folder:
@@ -33,7 +33,7 @@ def home(request):
                 file_name = uploaded.name
                 file_size = uploaded.size
                 if len(file_name) > MAX_FILENAME_LENGTH:
-                    messages.error(request,"Rename your file name ,length of the file name should be less than 11 character  ")
+                    messages.error(request,"Rename your file name ,length of the file name should be less than 27 character  ")
                 else:
                     File.objects.create(file =uploaded,fileUser = request.user)
 
@@ -54,14 +54,14 @@ def innerFolder(request,folder_id):
         if 'folder_name' in request.POST:
             folder_name = request.POST.get('folder_name')
             if len(folder_name) > MAX_FILENAME_LENGTH:
-                        messages.error(request,"Rename your folder name ,length of the folder  should be less than 11 character  ")
+                        messages.error(request,"Rename your folder name ,length of the folder  should be less than 27 character  ")
             else:
                 InnerFolder.objects.create(folderName=folder_name, parentFolder=parentfolder)
         elif 'uploadFile' in request.FILES:
             uploaded_file = request.FILES['uploadFile']
             file_name = uploaded_file.name
             if len(file_name) > MAX_FILENAME_LENGTH :
-                messages.error(request,"Rename your file name ,length of the file name should be less than 11 character  ")
+                messages.error(request,"Rename your file name ,length of the file name should be less than 27 character  ")
             else:
                 InnerFile.objects.create(file=uploaded_file, fileUser=parentfolder)
         else:
@@ -85,7 +85,7 @@ def subFile(request,innerFolderId):
             uploaded_file = request.FILES['uploadFile']
             file_name = uploaded_file.name
             if len(file_name) > MAX_FILENAME_LENGTH :
-                messages.error(request,"Rename your file name ,length of the file name should be less than 11 character  ")
+                messages.error(request,"Rename your file name ,length of the file name should be less than 27 character  ")
             else:
                 SubFile.objects.create(file=uploaded_file, fileUser=folder_User)
 
@@ -110,7 +110,7 @@ def renameFolder(request,rename_id):
                     print('updated folder name')
                     return redirect('/')
                 else:
-                    messages.error(request,"Rename your folder name ,length of the folder should be less than 11 character  ")
+                    messages.error(request,"Rename your folder name ,length of the folder should be less than 27 character  ")
 
     context = {
         'folders':folders,
@@ -146,7 +146,7 @@ def renameFile(request,renameFile_id):
                 print('updated folder name')
                 return redirect('/')
             else:
-                messages.error(request,"Rename your folder name ,length of the folder should be less than 11 character  ")
+                messages.error(request,"Rename your folder name ,length of the folder should be less than 27 character  ")
     context = {
         'folders':folders,
         'files':files,
@@ -178,7 +178,7 @@ def innerFolderRename(request,folder_id ,innerFolderRename_id):
                     print('updated folder name')
                     return redirect('folder', folder_id=folder_id)
             else:
-                messages.error(request,"Rename your folder name ,length of the folder should be less than 11 character  ")
+                messages.error(request,"Rename your folder name ,length of the folder should be less than 27 character  ")
     context = {
         'innerFolder':innerFolder,
         'folderId':folder_id,
@@ -211,7 +211,7 @@ def renameInnerFile(request,parentFOlderiD,renamefile_Id):
                     print('updated folder name')
                     return redirect('folder', folder_id=parentFOlderiD)
             else:
-                messages.error(request,"Rename your file name ,length of the file should be less than 11 character  ")
+                messages.error(request,"Rename your file name ,length of the file should be less than 27 character  ")
     context = {
         'innerFolder':innerFolder,
         'folderId':parentFOlderiD,
@@ -279,7 +279,7 @@ def renameSubFile(request,innerfolderId,renameSubFile_id):
             file_instance.save()
             return redirect('subFile', innerFolderId = innerfolderId)
         else:
-            messages.error(request,"Rename your file name ,length of the file should be less than 11 character  ")
+            messages.error(request,"Rename your file name ,length of the file should be less than 27 character  ")
 
     context = { 
         'subfile':subFile,  

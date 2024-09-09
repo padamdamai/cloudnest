@@ -93,7 +93,7 @@
     color:rgb(148, 143, 143);
 }
 .container_loggedin{
-    margin-top: 12vh !important;
+    margin-top: 25vh !important;
 }
 .bg_success_loggedIn{
     background-color:rgba(-126,56,44);
@@ -102,6 +102,7 @@
 .container_registered{
     margin-top: 12vh;
 }
+
 .fixed-top-alert {
     position: fixed;
     top: 0;
